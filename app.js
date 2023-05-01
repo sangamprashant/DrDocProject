@@ -21,6 +21,7 @@ require("./models/post");
 require("./models/message");
 require("./models/product");
 require("./models/cart");
+require("./models/order");
 app.use(require("./routes/auth"));
 app.use(require("./routes/createpost"));
 app.use(require("./routes/Message"));
@@ -35,7 +36,7 @@ mongoose.connection.on("error", () => {
 });
 
 // serving the frontend
-// app.use(express.static(path.join(__dirname, "./demo/build")));
+ app.use(express.static(path.join(__dirname, "./demo/build")));
 
 const io = socket(server, {
   cors: {

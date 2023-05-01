@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const MyCart = () => {
+  const loggeduser = JSON.parse(localStorage.getItem("user"));
   const [items, setItems] = useState([]);
   const [cartId, setCartId] = useState();
   const [grandPrice, setGrandPrice] = useState(0);
@@ -11,7 +12,7 @@ const MyCart = () => {
   const notifyB = (msg) => toast.success(msg);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("/cart", {
+    fetch('http://localhost:5000/api/cart/items', {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +32,7 @@ const MyCart = () => {
   // remove from carta
   const removeItemFromCart = (cartId, itemId) => {
     console.log(cartId, itemId);
-    fetch(`/cart/${cartId}/item/${itemId}`, {
+    fetch(`http://localhost:5000/api/cart/${cartId}/item/${itemId}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +57,7 @@ const MyCart = () => {
   const handleAddOne = async (itemId) => {
     console.log(itemId);
     try {
-      const response = await fetch(`/cart/add/${itemId}`, {
+      const response = await fetch(`http://localhost:5000/api/cart/add/${itemId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +91,7 @@ const MyCart = () => {
     console.log(itemId);
     try {
       const response = await fetch(
-        `/cart/remove/${itemId}`,
+        `http://localhost:5000/api/cart/remove/${itemId}`,
         {
           method: "PUT",
           headers: {
@@ -122,7 +123,7 @@ const MyCart = () => {
   };
 
   const totalSalesPrice = items.reduce((accumulator, item) => {
-    return accumulator + item.product.salesprice * item.quantity;
+    return accumulator + item.product.salesPrice * item.quantity;
   }, 0);
 
   return (
@@ -139,7 +140,7 @@ const MyCart = () => {
                 <p>Looks like you haven't added any items to your cart yet.</p>
                 <button
                   onClick={() => {
-                    navigate(`/products`);
+                    navigate(`/store`);
                   }}
                   className="btn-shop-now"
                 >
@@ -160,7 +161,7 @@ const MyCart = () => {
                         <div class="row d-flex justify-content-between align-items-center">
                           <div class="col-md-2 col-lg-2 col-xl-2">
                             <img
-                              src={item.product.url}
+                              src={item.product.imageUrl}
                               alt={item.product.title}
                               class="img-fluid rounded-3"
                             />
@@ -207,7 +208,7 @@ const MyCart = () => {
                           <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                             <h5 class="mb-0">
                               {" "}
-                              {item.quantity * item.product.salesprice}{" "}
+                              {item.quantity * item.product.salesPrice}{" "}
                             </h5>
                           </div>
                           <div class="col-md-1 col-lg-1 col-xl-1 text-end">
@@ -254,7 +255,7 @@ const MyCart = () => {
                     class="btn btn-warning btn-block btn-lg"
                     style={{ width: "100%" }}
                     onClick={() => {
-                      navigate("/setting/makeorder");
+                      navigate(`/${loggeduser.userName}/makeorder`);
                     }}
                   >
                     Proceed to Pay

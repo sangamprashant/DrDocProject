@@ -22,6 +22,7 @@ import MyOrders from "./components/MyOrders";
 import AddMedicine from "./components/AddMedicine";
 import MyProduct from "./components/MyProduct";
 import ProductOpen from "./components/ProductOpen";
+import MakeOrder from "./components/MakeOrder";
 
 function App() {
   const [userLogin, setUserLogin] = useState(false);
@@ -45,7 +46,8 @@ function App() {
             <Route exact path="/message" element={<Chat />} />
             <Route exact path="/store" element={<Store />} />
 
-
+            <Route exact path=":userName/makeorder" element={<MakeOrder />} />
+            <Route exact path=":userName/my" element={<MakeOrder />} />
             <Route exact path=":userName/settings" element={<Settings />} />
             <Route exact path=":userName/setting/seller/dashboard" element={ <Dashboard/> } />
             <Route exact path=":userName/setting/seller/addmedicine" element={ <AddMedicine/> } />

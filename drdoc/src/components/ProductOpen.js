@@ -5,13 +5,13 @@ import "./css/ProductOpen.css";
 import { Link, useNavigate } from "react-router-dom";
 export default function ProductOpen({ login }) {
   const token = localStorage.getItem("jwt");
+  const loggeduser = JSON.parse(localStorage.getItem("user"));
   const today = new Date();
   const tenDaysLater = new Date(today);
   tenDaysLater.setDate(today.getDate() + 10);
 
   const options = { day: "numeric", month: "short", year: "numeric" };
   const [Product, setProduct] = useState([]);
-  const [cartValue, setCartValue] = useState(1);
   const [cartId, setCartId] = useState(null);
   const [items, setItems] = useState([]);
   const { productId } = useParams();
@@ -23,7 +23,6 @@ export default function ProductOpen({ login }) {
 
   // Check if product is already in cart
   const isInCart = items.find((item) => item.product._id === productId);
-  console.log(items);
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/product/open/${productId}`, {
@@ -35,7 +34,7 @@ export default function ProductOpen({ login }) {
       .then((result) => setProduct([result]));
 
     // Fetch cart details
-    fetch("/cart", {
+    fetch('http://localhost:5000/api/cart/items', {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,37 +43,37 @@ export default function ProductOpen({ login }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        setCartId(data.cart._id); // log cart data to console
         setItems(data.cart.items);
       })
       .catch((error) => {
         console.error(error);
       });
-  });
+      
+  },);
 
-  const postData = () => {
+
+  const postData = async() => {
     if (login || token) {
       // Sending data to server
-      fetch("/cart/add", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify({
-          productId: productId,
-          quantity: cartValue,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            notifyA(data.error);
-          } else {
-            notifyB("Item added To cart");
-            console.log(data);
-          }
-          console.log(data);
+      try {
+        const response = await fetch("http://localhost:5000/api/cart/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          body: JSON.stringify({ productId: productId }),
         });
+        const data = await response.json();
+        if (data.message) {
+          notifyB(data.message);
+        } else {
+          notifyA(data.error);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       notifyA("You Must Login First");
       navigate("/signin");
@@ -201,9 +200,7 @@ export default function ProductOpen({ login }) {
                       <button
                         className="btn btn-dark mr-2"
                         type="button"
-                        onClick={() => {
-                          navigate("/cart");
-                        }}
+                        onClick={() => navigate(`/${loggeduser.userName}/cart`)}
                       >
                         Go to cart
                       </button>
@@ -212,7 +209,7 @@ export default function ProductOpen({ login }) {
                         className="btn btn-dark mr-2"
                         type="button"
                         onClick={() => {
-                          setCartValue(1);
+                        
                           postData();
                         }}
                       >

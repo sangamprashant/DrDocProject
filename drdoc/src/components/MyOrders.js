@@ -4,6 +4,7 @@ import "./css/MyOrders.css";
 import { toast } from "react-toastify";
 
 const MyOrders = () => {
+    const loggeduser = JSON.parse(localStorage.getItem("user"));
   const [orders, setOrders] = useState([]);
   const notifyA = (msg) => toast.error(msg);
   const notifyB = (msg) => toast.success(msg);
@@ -34,7 +35,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     async function fetchOrders() {
-      const response = await fetch("/my/orders", {
+      const response = await fetch(`http://localhost:5000/api/${loggeduser.userName}/myorders`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -85,7 +86,7 @@ const MyOrders = () => {
                                         <div className="sq align-self-center">
                                       <img
                                         className="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
-                                        src={item.product.url}
+                                        src={item.product.imageUrl}
                                         style={{
                                           width: "335px",
                                          
@@ -113,7 +114,7 @@ const MyOrders = () => {
                                           <h6 className="mb-0">
                                             &#8377;
                                             {item.quantity *
-                                              item.product.salesprice}
+                                              item.product.salesPrice}
                                           </h6>
                                         </div>
                                       </div>
