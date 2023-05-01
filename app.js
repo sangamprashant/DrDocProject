@@ -20,6 +20,7 @@ require("./models/model");
 require("./models/post");
 require("./models/message");
 require("./models/product");
+require("./models/cart");
 app.use(require("./routes/auth"));
 app.use(require("./routes/createpost"));
 app.use(require("./routes/Message"));

@@ -21,6 +21,7 @@ import MyCart from "./components/Cart";
 import MyOrders from "./components/MyOrders";
 import AddMedicine from "./components/AddMedicine";
 import MyProduct from "./components/MyProduct";
+import ProductOpen from "./components/ProductOpen";
 
 function App() {
   const [userLogin, setUserLogin] = useState(false);
@@ -51,6 +52,7 @@ function App() {
             <Route exact path=":userName/cart" element={ <MyCart/> } />
             <Route exact path=":userName/myorders" element={ <MyOrders/> } />
             <Route exact path=":userName/myproducts" element={ <MyProduct /> } />
+            <Route exact path=":seller/product/clicked/:productId" element={<ProductOpen login={userLogin}/>} />
             <Route path="*" element={<PagenotFound />} />
           </Routes>
           <ToastContainer theme="dark" />
