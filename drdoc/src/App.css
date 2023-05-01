@@ -1,0 +1,317 @@
+
+
+
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3rem;
+
+  /*========== Colors ==========*/
+  --hue: 174;
+  --sat: 63%;
+  --first-color: hsl(var(--hue), var(--sat), 40%);
+  --first-color-alt: hsl(var(--hue), var(--sat), 36%);
+  --title-color: hsl(var(--hue), 12%, 15%);
+  --text-color: hsl(var(--hue), 8%, 35%);
+  --body-color: hsl(var(--hue), 100%, 99%);
+  --container__nav__nav-color: #FFF;
+
+  /*========== Font and typography ==========*/
+  --body-font: 'Open Sans', sans-serif;
+  --h1-font-size: 1.5rem;
+  --normal-font-size: .938rem;
+  --tiny-font-size: .625rem;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+@media screen and (min-width: 968px) {
+  :root {
+    --h1-font-size: 2.25rem;
+    --normal-font-size: 1rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  height: -webkit-fill-available;
+  background-color: #e6fafd;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+.profile__image{
+  
+
+  width: 210px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.section {
+  padding: 4.5rem 0 2rem;
+}
+
+.section__title {
+  font-size: var(--h1-font-size);
+  color: var(--title-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.section__height {
+  height: 100vh;
+}
+
+/*=============== LAYOUT ===============*/
+.container__nav__nav {
+  max-width: 968px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/*=============== HEADER ===============*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(218, 191, 224);
+  z-index:1;
+  transition: .4s;
+}
+
+/*=============== nav__nav ===============*/
+.nav__nav {
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row{
+  
+  justify-content: center;
+}
+
+.nav__nav__img {
+  width:34px;
+  border-radius: 50%;
+}
+
+.nav__nav__logo {
+  color: rgb(10, 141, 113);
+  font-weight: 600;
+  font-size:50px;
+}
+.logo-image{
+  width: 30px;
+  height: 30px;
+ border-radius: 10%;
+  overflow: hidden;
+  margin-top: -1px;
+  justify-content: center;
+}
+.logo-image-brand{
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  overflow: hidden;
+  justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+  .nav__nav__menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(218, 191, 224);
+    box-shadow: 0 -1px 12px hsla(var(--hue), var(--sat), 15%, 0.15);
+    width: 100%;
+    height: 4rem;
+
+    display: grid;
+    align-content: center;
+    border-radius: 1.25rem 1.25rem 0 0;
+    transition: .4s;
+  }
+
+}
+
+.nav__nav__list, 
+.nav__nav__link {
+  display: flex;
+  justify-content: center;
+}
+
+.nav__nav__link {
+  flex-direction: column;
+  align-items: center;
+  row-gap: 4px;
+  color: var(--title-color);
+  font-weight: 600;
+}
+
+.nav__nav__list {
+  justify-content:space-between;
+  margin: 100px;
+}
+
+.nav__nav__name {
+  font-size:14px;
+  margin-top: -6px;
+  /* display: none;*/ /* Minimalist design, hidden labels */
+}
+
+.nav__nav__icon {
+  font-size: 1rem;
+  justify-content: space-between;
+}
+
+/*Active link*/
+.active-link {
+  position: relative;
+  color: var(--first-color);
+  transition: .3s;
+}
+
+/* Minimalist design, active link */
+/* .active-link::before{
+  content: '';
+  position: absolute;
+  bottom: -.5rem;
+  width: 4px;
+  height: 4px;
+  background-color: var(--first-color);
+  border-radius: 50%;
+} */
+
+/* Change background header */
+.scroll-header {
+  box-shadow: 0 1px 12px hsla(var(--hue), var(--sat), 15%, 0.15);
+}
+
+/*=============== MEDIA QUERIES ===============*/
+/* For small devices */
+/* Remove if you choose, the minimalist design */
+@media screen and (max-width: 320px) {
+  .nav__nav__name {
+    display: none;
+  }
+}
+
+/* For medium devices */
+@media screen and (min-width: 576px) {
+  .nav__nav__list {
+    justify-content: center;
+    column-gap: 3rem;
+  }
+
+  .profile__image{
+   
+    align-items: left;
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: 767px) {
+
+  .profile__image{
+    margin-top: 90px;
+  }
+  .section {
+    padding: 7rem 0 2rem;
+  }
+  .nav__nav {
+    height: calc(var(--header-height) + .5rem); /* 4.5rem */
+  }
+  
+  .nav__nav__icon {
+    display: none;
+    
+  }
+  .nav__nav__name {
+    font-size: 20px;
+    /* display: block; */ /* Minimalist design, visible labels */
+  }
+  .nav__nav__link:hover {
+    color: var(--first-color);
+  }
+
+  /* First design, remove if you choose the minimalist design */
+  .active-link::before {
+    content: '';
+    position: absolute;
+    bottom: -.75rem;
+    width: 4px;
+    height: 4px;
+    background-color: var(--first-color);
+    border-radius: 50%;
+  }
+
+  /* Minimalist design */
+  /* .active-link::before{
+      bottom: -.75rem;
+  } */
+  .profile__image{
+  
+    align-items: left;
+    width: 300px;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 1024px) {
+  .container__nav__nav {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .margin__top{
+    margin-top: 5rem;
+  }
+ 
+}
+
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.not-found h1{
+  font-size: 3em;
+  margin-bottom: 50px;
+}
+
+.not-found p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.not-found a {
+  color: #008CBA;
+  text-decoration: none;
+}

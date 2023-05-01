@@ -1,0 +1,112 @@
+.userContainer img {
+  margin-top: 10px;
+  padding: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.mainContactContainer {
+  width: 100%;
+  display: contain;
+  background-color: rgb(141, 86, 86);
+  justify-content: center;
+  margin-top: 5vh;
+}
+.containerforsearchbarcontact {
+  width: 100%;
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+  position: inherit;
+}
+.chatmessagediv {
+  display: flex;
+  justify-content: center;
+  margin-top: -12px;
+}
+.chatbutton {
+  background-color: blue;
+  color: black;
+
+  font-size: 20px;
+  width: 50%;
+}
+.chatmessagediv .left {
+  border-radius: 30px 0px 0px 30px;
+}
+.chatmessagediv .right {
+  border-radius: 0px 30px 30px 0px;
+}
+.searchbarforcontact {
+  margin: 10px;
+  width: 100%px;
+  height: 5vh;
+  border-radius: 10px;
+  border: none;
+  background-color: black;
+  font-size: 25px;
+}
+
+.Chatuserimage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.ChatUserName {
+  color: black;
+  text-align: start;
+  margin-top: 5px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.Chatuserchatdescription {
+  color: black;
+  text-align: start;
+  margin-top: -16px;
+  font-size: 15px;
+}
+.userContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  background-color: rgb(158, 159, 160);
+  padding: 6px;
+  padding-left: 15px;
+  border-radius: 10px;
+}
+.usersDetailcontainer {
+  height: 72vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (min-width: 992px) {
+
+  .searchbarforcontact {
+    margin-top: 0;
+    width: 20pc;
+    font-size: 15px;
+  }
+  .mainContactContainer {
+    width: 20pc;
+    margin-top: 10vh;
+  }
+  .Chatuserimage {
+    width: 45px;
+    height: 45px;
+  }
+  .ChatUserName {
+    font-size: 15px;
+  }
+  .Chatuserchatdescription {
+    font-size: 12px;
+  }
+  .usersDetailcontainer {
+    height: 80vh;
+  }
+  .chatbutton {
+    font-size: 12px;
+    width: 45%;
+  }
+}

@@ -1,0 +1,161 @@
+.center-container{
+   margin-bottom:80px
+}
+
+.container-setting{
+    margin-top:100px;
+ 
+ 
+    background-color: rgb(94, 78, 78);
+
+    border-radius: 1em;
+    text-align: center;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1em;
+
+    display: flex;
+    
+    justify-content: center;
+  
+}
+ 
+.user-image{
+    padding: 3em ;
+    margin-top:1em;
+    margin-bottom:1em;
+    
+    border-radius: 1em;
+    background-image: linear-gradient(70deg,#61A1DD,#0083FD);
+}
+ 
+.user-image img{
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    box-shadow:  0 0.6em 1.8em ;
+    object-fit: cover;
+}
+ 
+.content{
+    color: #4b4b4b;
+    padding-top: 2.2em;
+    padding-bottom: 2.2em;
+    margin-left: 20px;
+ 
+}
+ 
+.name{
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+ 
+.username{
+    font-size: 1em;
+    color: #666565;
+}
+ 
+
+ 
+.content>a{
+    text-decoration: none;
+    color: #565656;
+    transition: all 0.3s;
+    font-size: 1em;
+
+}
+.content> a:last-child{
+    margin: 0;
+}
+ 
+.cancle{
+    background-color:rgb(255, 70, 101);
+    
+}
+.cancle:hover{
+    color:rgb(236, 214, 218);
+    transform: scale(.9,.9);
+}
+ 
+.logout{
+    background-color:rgb(0, 0, 0);
+}
+.logout:hover{
+    color:rgb(238, 228, 228);
+    transform: scale(.9,.9);
+}
+ 
+.linkedin:hover{
+    color:rgba(4, 0, 253, 0.842);
+    transform: scale(2,2);
+}
+ 
+.facebook:hover{
+    color:rgb(4, 0, 255);
+    transform: scale(2,2);
+}
+ 
+.details{
+    margin-bottom: 1.8em;
+}
+ 
+ 
+/* CSS for messagin link */
+ 
+.effect {
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    color: rgb(48, 41, 41);
+    text-transform: capitalize;
+    width: 100%;
+   
+    font-size: 1.2em;
+    padding: 1em 3em;
+    border-radius: 5em;
+    overflow: hidden;
+}
+  
+
+.effect.effect-4:hover:before {
+transform: scale(1, 1);
+text-indent: 0;
+}
+
+
+
+.primaryBtn{
+    cursor: pointer;
+    font-weight: bolder;
+    padding: 13px 25px;
+    font-size: 1.2rem;
+    border: none;
+    color: white;
+    background: #db183c;
+    border-radius: 15px;
+  
+    transition: all 0.25s ease;
+}
+
+.changePic{
+    background-color: #fff;
+
+    border-radius: 20px;
+    text-align: center;
+}
+
+.changePic div{
+    padding: 15px 80px;
+   
+}
+.changePicBorder{
+    border-top: 1px solid #00000030;
+}
+
+.upload-btn{
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: bolder;
+    font-size: 15px;
+}
