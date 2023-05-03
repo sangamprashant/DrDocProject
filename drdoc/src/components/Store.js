@@ -46,8 +46,8 @@ export default function Store() {
 
   return (
     <div style={{ marginTop: "-20px" }}>
-      <section class="section menu" id="menu">
-        <div class="menu-container ">
+      <section className="section menu" id="menu">
+        <div className="menu-container ">
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <input
               className="store-search-box"
@@ -79,22 +79,22 @@ export default function Store() {
             products.map((product) => (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <div
-                  class="row justify-content-center mb-3"
+                  className="row justify-content-center mb-3"
                   style={{ width: "90%" }}
                 >
-                  <div class="col-md-12">
-                    <div class="card shadow-0 border rounded-3">
-                      <div class="card-body">
-                        <div class="row g-0">
-                          <div class="col-xl-3 col-md-4 d-flex justify-content-center"  onClick={() => {
+                  <div className="col-md-12">
+                    <div className="card shadow-0 border rounded-3">
+                      <div className="card-body">
+                        <div className="row g-0">
+                          <div className="col-xl-3 col-md-4 d-flex justify-content-center"  onClick={() => {
                   navigate(`/${product.uploadedBy.name}/product/clicked/${product._id}`);}}>
                   
-                            <div class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
-                              <img src={product.imageUrl} class="w-100" />
+                            <div className="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
+                              <img src={product.imageUrl} className="w-100" />
                               <a href="#!">
-                                <div class="hover-overlay">
+                                <div className="hover-overlay">
                                   <div
-                                    class="mask"
+                                    className="mask"
                                     style={{
                                       backgroundColor:
                                         "rgba(253, 253, 253, 0.15)",
@@ -104,35 +104,35 @@ export default function Store() {
                               </a>
                             </div>
                           </div>
-                          <div class="col-xl-6 col-md-5 col-sm-7">
+                          <div className="col-xl-6 col-md-5 col-sm-7">
                             <h5>{product.title}</h5>
-                            <div class="d-flex flex-row">
-                              <div class="text-warning mb-1 me-2">
-                                <span class="ms-1">{product.tagline}</span>
+                            <div className="d-flex flex-row">
+                              <div className="text-warning mb-1 me-2">
+                                <span className="ms-1">{product.tagline}</span>
                               </div>
                             </div>
 
-                            <p class="text mb-4 mb-md-0">
+                            <p className="text mb-4 mb-md-0">
                               {product.description}
                             </p>
-                            <div class="d-flex flex-row">
-                              <div class="text-warning mb-1 me-2">
-                                <span class="ms-1">{product.type}</span>
+                            <div className="d-flex flex-row">
+                              <div className="text-warning mb-1 me-2">
+                                <span className="ms-1">{product.type}</span>
                               </div>
                             </div>
                           </div>
 
-                          <div class="col-xl-3 col-md-3 col-sm-5">
-                            <div class="d-flex flex-row align-items-center mb-1">
-                              <h4 class="mb-1 me-1">RS.{product.salesPrice}</h4>
-                              <span class="text-danger">
+                          <div className="col-xl-3 col-md-3 col-sm-5">
+                            <div className="d-flex flex-row align-items-center mb-1">
+                              <h4 className="mb-1 me-1">RS.{product.salesPrice}</h4>
+                              <span className="text-danger">
                                 <s>RS.{product.mrp}</s>
                               </span>
                             </div>
-                            <h6 class="text-success">Free shipping</h6>
-                            <div class="mt-4">
+                            <h6 className="text-success">Free shipping</h6>
+                            <div className="mt-4">
                               <button
-                                class="btn btn-primary shadow-0"
+                                className="btn btn-primary shadow-0"
                                 type="button"
                                 onClick={() => addToCart(product._id)}
                               >

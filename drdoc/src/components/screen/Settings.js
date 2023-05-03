@@ -40,30 +40,30 @@ function Settings() {
     if (token) {
       return [
         <>
-          <div class="center-container" style={{}}>
-            <div class="container container-setting">
-              <div class="user-image">
+          <div className="center-container" style={{}}>
+            <div className="container container-setting">
+              <div className="user-image">
                 <img
                   src={loggeduser.Photo || image}
                   alt="this image contains user-image"
                 />
-                <div class="content">
-                  <h3 class="name">{loggeduser.name}</h3>
-                  <p class="username">{loggeduser.userName}</p>
-                  <p class="details">all your stats in 1 place</p>
+                <div className="content">
+                  <h3 className="name">{loggeduser.name}</h3>
+                  <p className="username">{loggeduser.userName}</p>
+                  <p className="details">all your stats in 1 place</p>
                 </div>
               </div>
 
-              <div class="content">
+              <div className="content">
                 <div>
                   <a
-                    class=" logout effect effect-4"
+                    className=" logout effect effect-4"
                     onClick={() => navigate(`/${loggeduser.userName}/cart`)}
                   >
                     Cart
                   </a>
                   <a
-                    class=" logout effect effect-4"
+                    className=" logout effect effect-4"
                     onClick={() => navigate(`/${loggeduser.userName}/myorders`)}
                   >
                     My Orders
@@ -71,7 +71,7 @@ function Settings() {
                   {loggeduser.account === "seller" ? (
                     <>
                       <a
-                        class=" logout effect effect-4"
+                        className=" logout effect effect-4"
                         onClick={() =>
                           navigate(
                             `/${loggeduser.userName}/setting/seller/dashboard`
@@ -81,7 +81,7 @@ function Settings() {
                         Dashboard
                       </a>
                       <a
-                        class=" logout effect effect-4"
+                        className=" logout effect effect-4"
                         onClick={() =>
                           navigate(
                             `/${loggeduser.userName}/setting/seller/addmedicine`
@@ -91,7 +91,7 @@ function Settings() {
                         Add Products
                       </a>
                       <a
-                        class=" logout effect effect-4"
+                        className=" logout effect effect-4"
                         onClick={() =>
                           navigate(
                             `/${loggeduser.userName}/myproducts`
@@ -106,20 +106,20 @@ function Settings() {
                   )}
 
                   <a
-                    class=" logout effect effect-4"
+                    className=" logout effect effect-4"
                     onClick={() => changeprofile()}
                   >
                     Update Profile Photo
                   </a>
                   <a
-                    class=" logout effect effect-4"
+                    className=" logout effect effect-4"
                     onClick={() => changeAccountType()}
                   >
                     Change Account Type
                   </a>
 
                   <a
-                    class=" cancle effect effect-4"
+                    className=" cancle effect effect-4"
                     onClick={() => setModalOpen(true)}
                   >
                     Log Out

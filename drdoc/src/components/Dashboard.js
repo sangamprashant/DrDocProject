@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-
 import "./css/StatusUpdate.css";
 import conf from "./img/confirm.png";
 import deliver from "./img/deliver.png";
 import ship from "./img/ship.png";
 import packimg from "./img/pack.png";
-import cancel from"./img/cancel.png";
+import cancel from "./img/cancel.png";
 
 const StatusUpdate = () => {
   const [pack, setPack] = useState(false);
@@ -59,7 +58,7 @@ const StatusUpdate = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const response = await fetch(
-        `/orders/${orderId}/status`,
+        `http://localhost:5000/api/orders/${orderId}/status`,
         {
           method: "PUT",
           headers: {
@@ -84,7 +83,7 @@ const StatusUpdate = () => {
 
   useEffect(() => {
     async function fetchOrders() {
-      const response = await fetch(`/orders/status`, {
+      const response = await fetch(`http://localhost:5000/api/orders/status`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",
@@ -113,73 +112,69 @@ const StatusUpdate = () => {
     <div className="cart">
       <main className="page payment-page" style={{ paddingTop: "80px" }}>
         <div className="main">
-        <div className="box-container">
-  <div className="box box1" onClick={handlecomfirmed}>
-    <div className="text">
-      <h2 className="topic-heading">
-        {confirmedOrdersDisplay ? (
-          <>{confirmedOrdersDisplay.length}</>
-        ) : (
-          0
-        )}
-      </h2>
-      <h2 className="topic">Confirmed</h2>
-    </div>
-    <img src={conf} alt="Views" />
-  </div>
-  <div className="box box1" onClick={handlePacked}>
-    <div className="text">
-      <h2 className="topic-heading">
-        {packedOrdersDisplay ? (
-          <>{packedOrdersDisplay.length}</>
-        ) : (
-          0
-        )}
-      </h2>
-      <h2 className="topic">Packing</h2>
-    </div>
-    <img src={packimg} alt="Views" />
-  </div>
-  <div className="box box1" onClick={handleShipped}>
-    <div className="text">
-      <h2 className="topic-heading">
-        {shippedOrdersDisplay ? (
-          <>{shippedOrdersDisplay.length}</>
-        ) : (
-          0
-        )}
-      </h2>
-      <h2 className="topic">Shipped</h2>
-    </div>
-    <img src={ship} alt="Views" />
-  </div>
-  <div className="box box1" onClick={handleDelivered}>
-    <div className="text">
-      <h2 className="topic-heading">
-        {deliveredOrdersDisplay ? (
-          <>{deliveredOrdersDisplay.length}</>
-        ) : (
-          0
-        )}
-      </h2>
-      <h2 className="topic">Delivered</h2>
-    </div>
-    <img src={deliver} alt="Views" />
-  </div>
-  <div className="box box1" onClick={handleCanceled}>
-    <div className="text">
-      <h2 className="topic-heading">
-        {canceledOrdersDisplay ? (
-          <>{canceledOrdersDisplay.length}</>
-        ) : (
-          0
-        )}
-      </h2>
-      <h2 className="topic">Canceled</h2>
-    </div>
-    <img src={cancel} alt="Views" />
-  </div>
-</div>
+          <div className="box-container">
+            <div className="box box1" onClick={handlecomfirmed}>
+              <div className="text">
+                <h2 className="topic-heading">
+                  {confirmedOrdersDisplay ? (
+                    <>{confirmedOrdersDisplay.length}</>
+                  ) : (
+                    0
+                  )}
+                </h2>
+                <h2 className="topic">Confirmed</h2>
+              </div>
+              <img src={conf} alt="Views" />
+            </div>
+            <div className="box box1" onClick={handlePacked}>
+              <div className="text">
+                <h2 className="topic-heading">
+                  {packedOrdersDisplay ? <>{packedOrdersDisplay.length}</> : 0}
+                </h2>
+                <h2 className="topic">Packing</h2>
+              </div>
+              <img src={packimg} alt="Views" />
+            </div>
+            <div className="box box1" onClick={handleShipped}>
+              <div className="text">
+                <h2 className="topic-heading">
+                  {shippedOrdersDisplay ? (
+                    <>{shippedOrdersDisplay.length}</>
+                  ) : (
+                    0
+                  )}
+                </h2>
+                <h2 className="topic">Shipped</h2>
+              </div>
+              <img src={ship} alt="Views" />
+            </div>
+            <div className="box box1" onClick={handleDelivered}>
+              <div className="text">
+                <h2 className="topic-heading">
+                  {deliveredOrdersDisplay ? (
+                    <>{deliveredOrdersDisplay.length}</>
+                  ) : (
+                    0
+                  )}
+                </h2>
+                <h2 className="topic">Delivered</h2>
+              </div>
+              <img src={deliver} alt="Views" />
+            </div>
+            <div className="box box1" onClick={handleCanceled}>
+              <div className="text">
+                <h2 className="topic-heading">
+                  {canceledOrdersDisplay ? (
+                    <>{canceledOrdersDisplay.length}</>
+                  ) : (
+                    0
+                  )}
+                </h2>
+                <h2 className="topic">Canceled</h2>
+              </div>
+              <img src={cancel} alt="Views" />
+            </div>
+          </div>
 
           <div className="report-container">
             <div className="report-header">
@@ -219,7 +214,7 @@ const StatusUpdate = () => {
                                         height: "100px",
                                         marginRight: "7%",
                                       }}
-                                      src={item.product.url}
+                                      src={item.product.imageUrl}
                                       alt="product image"
                                     />
                                     <h3 className="t-op-nextlvl">
@@ -232,15 +227,16 @@ const StatusUpdate = () => {
                                       {item.quantity}
                                     </h3>
                                     <h3 className="t-op-nextlvl">
-                                      {item.product.salesprice}
+                                      {item.product.salesPrice}
                                     </h3>
                                     <h3 className="t-op-nextlvl">
                                       {order.deliveryAddress}
                                     </h3>
                                     <div>
                                       <h3 className="t-op-nextlvl label-tag">
-                                        {order.status}
+                                        {order.status} Order
                                       </h3>
+                                      <br />
                                       <h3
                                         className="t-op-nextlvl label-tag"
                                         style={{
@@ -254,7 +250,7 @@ const StatusUpdate = () => {
                                           )
                                         }
                                       >
-                                        Confirmed Order
+                                        Packing Order
                                       </h3>
                                     </div>
 
@@ -286,7 +282,7 @@ const StatusUpdate = () => {
                                       height: "100px",
                                       marginRight: "7%",
                                     }}
-                                    src={item.product.url}
+                                    src={item.product.imageUrl}
                                     alt="product image"
                                   />
                                   <h3 className="t-op-nextlvl">
@@ -299,15 +295,16 @@ const StatusUpdate = () => {
                                     {item.quantity}
                                   </h3>
                                   <h3 className="t-op-nextlvl">
-                                    {item.product.salesprice}
+                                    {item.product.salesPrice}
                                   </h3>
                                   <h3 className="t-op-nextlvl">
                                     {order.deliveryAddress}
                                   </h3>
                                   <div>
                                     <h3 className="t-op-nextlvl label-tag">
-                                      {order.status}
+                                      {order.status} Order
                                     </h3>
+                                    <br />
                                     <h3
                                       className="t-op-nextlvl label-tag"
                                       style={{ backgroundColor: "red" }}
@@ -345,7 +342,7 @@ const StatusUpdate = () => {
                                       height: "100px",
                                       marginRight: "7%",
                                     }}
-                                    src={item.product.url}
+                                    src={item.product.imageUrl}
                                     alt="product image"
                                   />
                                   <h3 className="t-op-nextlvl">
@@ -358,15 +355,16 @@ const StatusUpdate = () => {
                                     {item.quantity}
                                   </h3>
                                   <h3 className="t-op-nextlvl">
-                                    {item.product.salesprice}
+                                    {item.product.salesPrice}
                                   </h3>
                                   <h3 className="t-op-nextlvl">
                                     {order.deliveryAddress}
                                   </h3>
                                   <div>
                                     <h3 className="t-op-nextlvl label-tag">
-                                      {order.status}
+                                      {order.status} Order
                                     </h3>
+                                    <br />
                                     <h3
                                       className="t-op-nextlvl label-tag"
                                       style={{ backgroundColor: "red" }}
@@ -407,7 +405,7 @@ const StatusUpdate = () => {
                                       height: "100px",
                                       marginRight: "7%",
                                     }}
-                                    src={item.product.url}
+                                    src={item.product.imageUrl}
                                     alt="product image"
                                   />
                                   <h3 className="t-op-nextlvl">
@@ -420,7 +418,7 @@ const StatusUpdate = () => {
                                     {item.quantity}
                                   </h3>
                                   <h3 className="t-op-nextlvl">
-                                    {item.product.salesprice}
+                                    {item.product.salesPrice}
                                   </h3>
                                   <h3 className="t-op-nextlvl">
                                     {order.deliveryAddress}
@@ -442,7 +440,7 @@ const StatusUpdate = () => {
                 )}
                 {canceled && (
                   <>
-                  {canceledOrdersDisplay&&
+                    {canceledOrdersDisplay && (
                       <>
                         {canceledOrdersDisplay.map((order) => (
                           <div key={order._id} className="item1">
@@ -456,7 +454,7 @@ const StatusUpdate = () => {
                                         height: "100px",
                                         marginRight: "7%",
                                       }}
-                                      src={item.product.url}
+                                      src={item.product.imageUrl}
                                       alt="product image"
                                     />
                                     <h3 className="t-op-nextlvl">
@@ -469,13 +467,16 @@ const StatusUpdate = () => {
                                       {item.quantity}
                                     </h3>
                                     <h3 className="t-op-nextlvl">
-                                      {item.product.salesprice}
+                                      {item.product.salesPrice}
                                     </h3>
                                     <h3 className="t-op-nextlvl">
                                       {order.deliveryAddress}
                                     </h3>
                                     <div>
-                                      <h3 className="t-op-nextlvl label-tag">
+                                      <h3
+                                        className="t-op-nextlvl label-tag"
+                                        style={{ backgroundColor: "red" }}
+                                      >
                                         {order.status}
                                       </h3>
                                     </div>
@@ -488,7 +489,7 @@ const StatusUpdate = () => {
                           </div>
                         ))}
                       </>
-}
+                    )}
                   </>
                 )}
               </div>

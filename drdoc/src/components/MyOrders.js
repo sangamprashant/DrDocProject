@@ -4,23 +4,26 @@ import "./css/MyOrders.css";
 import { toast } from "react-toastify";
 
 const MyOrders = () => {
-    const loggeduser = JSON.parse(localStorage.getItem("user"));
+  const loggeduser = JSON.parse(localStorage.getItem("user"));
   const [orders, setOrders] = useState([]);
   const notifyA = (msg) => toast.error(msg);
   const notifyB = (msg) => toast.success(msg);
 
   const cancelOrder = async (orderId) => {
     try {
-      const response = await fetch(`/orders/${orderId}/cancel`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-      });
-      
+      const response = await fetch(
+        `http://localhost:5000/api/orders/${orderId}/cancel`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      );
+
       const data = await response.json();
-  
+
       if (data.message) {
         notifyB(data.message);
       } else {
@@ -31,16 +34,18 @@ const MyOrders = () => {
       console.error(error);
     }
   };
-  
 
   useEffect(() => {
     async function fetchOrders() {
-      const response = await fetch(`http://localhost:5000/api/${loggeduser.userName}/myorders`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/${loggeduser.userName}/myorders`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      );
       const data = await response.json();
       setOrders(data.orders);
     }
@@ -79,21 +84,19 @@ const MyOrders = () => {
                                       justifyContent: "space-between",
                                     }}
                                   >
-                                    
                                     <div className="media-body my-auto text-right">
                                       <div className="row my-auto flex-column flex-md-row">
                                         <div className="col my-auto">
-                                        <div className="sq align-self-center">
-                                      <img
-                                        className="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
-                                        src={item.product.imageUrl}
-                                        style={{
-                                          width: "335px",
-                                         
-                                        }}
-                                        alt={item.product.name}
-                                      />
-                                    </div>
+                                          <div className="sq align-self-center">
+                                            <img
+                                              className="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
+                                              src={item.product.imageUrl}
+                                              style={{
+                                                width: "335px",
+                                              }}
+                                              alt={item.product.name}
+                                            />
+                                          </div>
                                           Title:
                                           <h6 className="mb-0">
                                             {item.product.title}
@@ -141,12 +144,25 @@ const MyOrders = () => {
                                           style={{
                                             width:
                                               order.status === "Packing"
-                                                ? "25%"
-                                                : order.status === "Shipped"
                                                 ? "50%"
+                                                : order.status === "Shipped"
+                                                ? "70%"
                                                 : order.status === "Delivered"
                                                 ? "100%"
-                                                : "0%",
+                                                : order.status === "Canceled"
+                                                ? "100%"
+                                                : "25%",
+
+                                            backgroundColor:
+                                              order.status === "Canceled"
+                                                ? "red"
+                                                : order.status === "Packing"
+                                                ? "blue"
+                                                : order.status === "Shipped"
+                                                ? "#AB47BC"
+                                                : order.status === "Delivered"
+                                                ? "green"
+                                                : "yellow",
                                           }}
                                           role="progressbar"
                                           aria-valuenow="25"
@@ -164,21 +180,22 @@ const MyOrders = () => {
                                             <i className="fa fa-circle"></i>
                                           </span>
                                         </div>
-                                        {order.status !== "Delivered" && order.status !== "Canceled" && (
-                                          <div
-                                            className="col-auto flex-col-auto"
-                                            onClick={() => {
-                                              cancelOrder(order._id);
-                                            }}
-                                          >
-                                            <small className="text-right mr-sm-2">
-                                              Cancel
-                                            </small>
-                                            <span>
-                                              <i className="fa fa-circle"></i>
-                                            </span>
-                                          </div>
-                                        )}
+                                        {order.status !== "Delivered" &&
+                                          order.status !== "Canceled" && (
+                                            <div
+                                              className="col-auto flex-col-auto"
+                                              onClick={() => {
+                                                cancelOrder(order._id);
+                                              }}
+                                            >
+                                              <small className="text-right mr-sm-2">
+                                                Cancel
+                                              </small>
+                                              <span>
+                                                <i className="fa fa-circle"></i>
+                                              </span>
+                                            </div>
+                                          )}
                                       </div>
                                     </div>
                                   </div>

@@ -31,38 +31,38 @@ export default function Home() {
   if(token){
     return[
       <>
-      <div class="home">
-      <div class="user-header-wrapper">
-        <div class="user-header-inner">
-          <div class="uh-left">
-            <div class="uh-image">
+      <div className="home">
+      <div className="user-header-wrapper">
+        <div className="user-header-inner">
+          <div className="uh-left">
+            <div className="uh-image">
               <img
-                class="uh-image-inner"
+                className="uh-image-inner"
                 src={JSON.parse(localStorage.getItem("user")).Photo}
                 alt=""
               />
-              <div class="gradient"></div>
+              <div className="gradient"></div>
             </div>
           </div>
 
-          <div class="uh-right">
-            <div class="user-bio">
-              <h5 class="user-bio-name">
+          <div className="uh-right">
+            <div className="user-bio">
+              <h5 className="user-bio-name">
                 {JSON.parse(localStorage.getItem("user")).name}
               </h5>{" "}
               <h6>{JSON.parse(localStorage.getItem("user")).userName}</h6>
             </div>
-            {/*<div class="user-info-home">
+            {/*<div className="user-info-home">
             
               <h3>areal_alien</h3>
-              <button class="btn-home">Edit</button>
+              <button className="btn-home">Edit</button>
             </div>*/}
-            <div class="user-links">
+            <div className="user-links">
               <a>
                 <span>{pic.length}</span> Posts
               </a>
             </div>
-            <div class="user-bio">
+            <div className="user-bio">
               <p>
                 This is the user biography 😄
                 <br />
@@ -72,33 +72,33 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div class="user-page-wrapper">
-        <div class="user-page-inner">
-          <div id="imgblock1" class="image-block">
-            <div class="block">
+      <div className="user-page-wrapper">
+        <div className="user-page-inner">
+          <div id="imgblock1" className="image-block">
+            <div className="block">
               <img
-                class="image-home"
+                className="image-home"
                 src="https://images.unsplash.com/photo-1559056986-f834be7896e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80"
                 alt=""
               />
             </div>
-            <div id="imgblockbc1" class="block-background"></div>
+            <div id="imgblockbc1" className="block-background"></div>
           </div>
 
           {pic.map((pics) => {
             return (
               <div key={pics._id}>
-                <div id="img1" class="image-wrapper">
-                  <div id="iov1" class="img-overlay-wrapper">
-                    <div class="img-btns">
+                <div id="img1" className="image-wrapper">
+                  <div id="iov1" className="img-overlay-wrapper">
+                    <div className="img-btns">
                       <p>
-                        465 <i class="uil uil-heart-alt"></i> &nbsp&nbsp 25{" "}
-                        <i class="uil uil-comment"></i>
+                        465 <i className="uil uil-heart-alt"></i> &nbsp&nbsp 25{" "}
+                        <i className="uil uil-comment"></i>
                       </p>
                     </div>
-                    <div class="img-overlay"></div>
+                    <div className="img-overlay"></div>
                   </div>
-                  <img class="image-home" src={pics.photo} alt="" />
+                  <img className="image-home" src={pics.photo} alt="" />
                 </div>
               </div>
             );
@@ -108,7 +108,7 @@ export default function Home() {
 
       {pic.length === 0 ? (
         <>
-          <div class="zero-post-message ">
+          <div className="zero-post-message ">
             <p>
               Share your experiences and moments with your friends! Start by
               uploading your first post.
