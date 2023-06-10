@@ -81,7 +81,7 @@ export default function ProductOpen({ login }) {
   };
 
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div >
       {Product.map((product) => {
         const discount = (
           ((product.mrp - product.salesPrice) / product.mrp) *

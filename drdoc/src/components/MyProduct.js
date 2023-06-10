@@ -17,7 +17,7 @@ export default function MyProduct() {
   }, []);
 
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div >
       <div className="UserProduct">
         <h1>My Products</h1>
         <div className="productBoxContainer">

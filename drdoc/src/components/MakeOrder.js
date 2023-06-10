@@ -69,9 +69,10 @@ const MakeOrder = () => {
         <section className="payment-form dark">
           <div className="container">
             <div className="container block-heading">
-              <h2>Payment</h2>
-              <p>ThankYou To Purchase from our app:)</p>
+              <h2 style={{textAlign:"center"}}>Payment</h2>
+              <p style={{textAlign:"center"}}>ThankYou To Purchase from our app:)</p>
             </div>
+            <hr/>
             <form>
               <div className="products">
                 <h3 className="title">Checkout</h3>
@@ -215,7 +216,7 @@ const MakeOrder = () => {
                     <button
                       type="button"
                       className="btn btn-primary btn-block"
-                      style={{ padding: "10px 30px 10px 30px" }}
+                      style={{ padding: "10px 30px 10px 30px" ,width:"100%"}}
                       onClick={() => {
                         PlaceOrder(address, name, number, totalSalesPrice);
                       }}

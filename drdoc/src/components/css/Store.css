@@ -112,3 +112,13 @@
     border-radius: 50px;
     
   }
+.store-nav-button input,select {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 20px;
+
+}
+.store-nav-button input[type="button"]{
+  background-color: #717b7d;
+  color: aliceblue;
+}

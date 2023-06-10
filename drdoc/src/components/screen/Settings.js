@@ -41,7 +41,7 @@ function Settings() {
       return [
         <>
           <div className="center-container" style={{}}>
-            <div className="container container-setting">
+            <div className=" container-setting">
               <div className="user-image">
                 <img
                   src={loggeduser.Photo || image}

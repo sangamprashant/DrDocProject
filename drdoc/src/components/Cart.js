@@ -129,25 +129,32 @@ const MyCart = () => {
   }, 0);
 
   return (
-    <section
-      className="h-100"
-      style={{ backgroundColor: "#eee", paddingTop: "40px",marginBottom:"40px" }}
-    >
+    <section>
       <div className="container h-100 py-5">
         <div className="row d-flex justify-content-center align-items-center h-100">
           {items.length === 0 ? (
             <>
-              <div className="empty-cart">
-                <h1 style={{ color: "red" }}>Your Cart Is Empty</h1>
-                <p>Looks like you haven't added any items to your cart yet.</p>
-                <button
-                  onClick={() => {
-                    navigate(`/store`);
-                  }}
-                  className="btn-shop-now"
-                >
-                  Shop Now
-                </button>
+              <div
+                className="empty-cart"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <div>
+                  <h1 style={{ color: "red", textAlign: "center" }}>
+                    Your Cart Is Empty
+                  </h1>
+                  <p>
+                    Looks like you haven't added any items to your cart yet.
+                  </p>
+                  <button
+                    style={{ display: "flex", justifyContent: "center", alignItems:"center", marginLeft:"40%"}}
+                    onClick={() => {
+                      navigate(`/store`);
+                    }}
+                    className="btn-shop-now"
+                  >
+                    Shop Now
+                  </button>
+                </div>
               </div>
             </>
           ) : (
@@ -200,9 +207,10 @@ const MyCart = () => {
                               +
                             </button>
                           </div>
-                          <div
-                            className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                            <h5 className="mb-0">Price:{item.product.salesPrice}</h5>
+                          <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h5 className="mb-0">
+                              Price:{item.product.salesPrice}
+                            </h5>
                           </div>
 
                           <hr />

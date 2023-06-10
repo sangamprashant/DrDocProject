@@ -45,20 +45,19 @@ export default function Store() {
   }, [type]);
 
   return (
-    <div style={{ marginTop: "-20px" }}>
+    <div style={{ marginTop: "-100px" }}>
       <section className="section menu" id="menu">
         <div className="menu-container ">
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <div style={{ display: "flex", justifyContent: "space-around" }} className="store-nav-button">
             <input
-              className="store-search-box"
+              className="store-search-box "
               type="text"
               placeholder="search your medicine"
             />
-
-            <button>cart</button>
-            <button>My order</button>
-            <button>hi</button>
+            <input  type="button" placeholder="Cart" value="Cart"/>
+            <input  type="button" placeholder="Cart" value="My Orders"/>
             <select
+           
               value={type}
               onChange={(e) => {
                 setType(e.target.value);

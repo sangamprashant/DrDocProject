@@ -1,11 +1,5 @@
-.center-container{
-   margin-bottom:80px
-}
 
 .container-setting{
-    margin-top:100px;
- 
- 
     background-color: rgb(94, 78, 78);
 
     border-radius: 1em;
@@ -16,7 +10,7 @@
     display: flex;
     
     justify-content: center;
-  
+  padding: 10px;
 }
  
 .user-image{

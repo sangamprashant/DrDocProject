@@ -7,7 +7,7 @@ import Uploading from "./UploadingEffect";
 import $ from "jquery";
 
 export default function AddMedicine() {
-    const loggedUser = JSON.parse(localStorage.getItem("user"));
+  const loggedUser = JSON.parse(localStorage.getItem("user"));
   const [imageUrl, setImageUrl] = useState("");
   const [uploadload, setUploadLoad] = useState(false);
 
@@ -27,11 +27,11 @@ export default function AddMedicine() {
 
   // posting image to cloudinary
   const postDetails = () => {
-    setUploadLoad(true); 
+    setUploadLoad(true);
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "drdocstartuppreset")
-    data.append("cloud_name", "drdocsocial")
+    data.append("upload_preset", "drdocstartuppreset");
+    data.append("cloud_name", "drdocsocial");
     fetch("https://api.cloudinary.com/v1_1/drdocsocial/image/upload", {
       method: "post",
       body: data,
@@ -52,12 +52,12 @@ export default function AddMedicine() {
           Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
         body: JSON.stringify({
-            imageUrl: url,
+          imageUrl: url,
           title,
           description,
           type: type,
           mrp,
-          salesPrice:salesprice,
+          salesPrice: salesprice,
           stock,
           tagline,
         }),
@@ -93,7 +93,7 @@ export default function AddMedicine() {
   }, []);
 
   return (
-    <div style={{ marginTop: "-40px" }}>
+    <div style={{ marginTop: "-100px" }}>
       {uploadload ? (
         <div style={{ marginTop: "200px" }}>
           <Uploading />

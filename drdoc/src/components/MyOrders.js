@@ -58,13 +58,14 @@ const MyOrders = () => {
         <section className="payment-form ">
           <div className="container">
             <div className="block-heading">
-              <h2>My Orders</h2>
+              <h2 style={{textAlign:"center"}}>My Orders</h2>
 
-              <p>Thank you for purchasing from our app :)</p>
+              <p style={{textAlign:"center"}}>Thank you for purchasing from our app :)</p>
             </div>
             <form>
               <div className="products">
                 <h3 className="title">Items</h3>
+                <hr/>
                 {orders.map((order) => (
                   <div key={order._id}>
                     <h2>OrderId: #{order._id}</h2>
