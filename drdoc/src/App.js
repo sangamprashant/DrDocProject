@@ -34,8 +34,7 @@ function App() {
         <LoginContext.Provider
           value={{ setUserLogin, setModalOpen, setChatMessage }}
         >
-          <Bar login={userLogin} />
-
+          <Bar login={userLogin}  />
           <Routes>
             <Route path="/" element={<Landing login={userLogin} />} />
             <Route path="/signin" element={<Signin />} />
@@ -45,7 +44,6 @@ function App() {
             <Route exact path="/profile" element={<OtherUserProfile />} />
             <Route exact path="/message" element={<Chat />} />
             <Route exact path="/store" element={<Store />} />
-
             <Route exact path=":userName/makeorder" element={<MakeOrder />} />
             <Route exact path=":userName/my" element={<MakeOrder />} />
             <Route exact path=":userName/settings" element={<Settings />} />

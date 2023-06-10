@@ -47,7 +47,6 @@ html {
 
 body {
   height: -webkit-fill-available;
-  background-color: #e6fafd;
 }
 
 ul {
@@ -91,13 +90,7 @@ a {
 
 /*=============== HEADER ===============*/
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
   background-color: rgb(218, 191, 224);
-  z-index:1;
-  transition: .4s;
 }
 
 /*=============== nav__nav ===============*/

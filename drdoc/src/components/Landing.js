@@ -254,7 +254,7 @@ export default function Landing() {
           {/* ======= video Section ======= */}
           <section id="video" className="text-center">
             <div className="overlay">
-              <div className="container-fluid container-full">
+              <div className=" container-full">
                 <div className="row">
                   <a
                     href="https://www.youtube.com/watch?v=jDDaplaOz7Q&feature=emb_title"

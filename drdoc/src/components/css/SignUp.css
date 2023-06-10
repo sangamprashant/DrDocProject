@@ -4,12 +4,12 @@
 }
 
 .form-container {
-  margin-top: 30%;
+  margin-top: 5%;
   margin-bottom: 10%;
 }
 @media (min-width: 998px) {
   .form-container {
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 10%;
   }
 }

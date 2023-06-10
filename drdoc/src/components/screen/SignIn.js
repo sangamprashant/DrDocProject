@@ -56,7 +56,7 @@ export default function SignIn() {
   };
 
   return (
-    <>
+    <div className="signBackground">
       {!token ? (
         <div className="signIn">
           <div>
@@ -105,6 +105,6 @@ export default function SignIn() {
           </div>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }

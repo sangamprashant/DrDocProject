@@ -339,9 +339,6 @@ span {
     display: block;
   }
 
-  .navbar ul {
-    display: none;
-  }
 }
 
 .navbar-mobile {
