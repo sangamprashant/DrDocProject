@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require("express");
 const app = express();
 const PORT = 5000;
@@ -8,7 +10,6 @@ const server = app.listen(PORT, () => {
 });
 
 const mongoose = require("mongoose");
-const { mongoUrl } = require("./key");
 
 const cors = require("cors");
 const path = require("path");
@@ -27,7 +28,7 @@ app.use(require("./routes/createpost"));
 app.use(require("./routes/Message"));
 app.use(require("./routes/product"));
 
-mongoose.connect(mongoUrl);
+mongoose.connect(process.env.MONGO_URL);
 mongoose.connection.on("connected", () => {
   console.log("Connected to mongo");
 });

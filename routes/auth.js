@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const USER = mongoose.model("DRDOCUSER");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { Jwt_secret } = require("../key");
 const requirelogin = require("../middleware/requirelogin");
 
 
@@ -59,7 +58,7 @@ const requirelogin = require("../middleware/requirelogin");
         .compare(password, savedUser.password)
         .then((match) => {
           if (match) {
-            const token = jwt.sign({ _id: savedUser.id }, Jwt_secret);
+            const token = jwt.sign({ _id: savedUser.id }, process.env.JWT_SECRET);
             const { _id, name, email, userName, account, Photo } = savedUser;
             res.json({
               token,

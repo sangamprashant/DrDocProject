@@ -2,14 +2,10 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const requirelogin = require("../middleware/requirelogin");
-
 const PRODUCT = mongoose.model("DRDOCPRODUCT");
 const USER = mongoose.model("DRDOCUSER");
 const Cart = mongoose.model("DRDOCCART");
 const Order= mongoose.model("DRDOCORDER");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { Jwt_secret } = require("../key");
 
 router.post("/api/setting/product/upload", requirelogin, async (req, res) => {
   try {
@@ -62,6 +58,25 @@ router.get("/api/product/store/:type", (req, res) => {
       .then((products) => res.json(products))
       .catch((err) => console.log(err));
 });
+//geting product by name and type 
+router.get("/api/product/store/:type/:name", (req, res) => {
+  const type = req.params.type;
+  const name = req.params.name; 
+  let query = {};
+  if (type !== "all") {
+    query.type = type;
+  }
+  if (name) {
+    query.title = { $regex: name, $options: "i" }; // Case-insensitive search for the product name
+  }
+
+  PRODUCT.find(query)
+    .populate("uploadedBy", "uploadedBy name")
+    .sort("-createdAt")
+    .then((products) => res.json(products))
+    .catch((err) => console.log(err));
+});
+
 //getting product by id when clicked
 router.get("/api/product/open/:id", (req, res) => {
     const id = req.params.id;

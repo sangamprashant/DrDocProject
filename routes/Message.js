@@ -9,7 +9,7 @@ const MESSAGE = mongoose.model("DRDOCMESSAGE");
 
 //all doctor getting
 router.get("/message/doctor", (req,res)=>{
-    USER.find({account:"Doctor"}, function (err, user){
+    USER.find({account:"doctor"}, function (err, user){
         if(err){
             res.send("something went wrong");
             next();
@@ -19,7 +19,7 @@ router.get("/message/doctor", (req,res)=>{
 })
 //all doctor getting
 router.get("/message/regular", (req,res)=>{
-    USER.find({account:"Regular"}, function (err, user){
+    USER.find({account:"regular"}, function (err, user){
         if(err){
             res.send("something went wrong");
             next();
@@ -58,9 +58,22 @@ router.get("/message/:user1id/:user2id", async (req, res) => {
     }).sort({ updatedAt: 1 });
 
     const allmessage = newMessage.map((msg) => {
+      const date = new Date(msg.updatedAt);
+      const formattedDate = date.toLocaleDateString(undefined, {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      });
+      const formattedTime = date.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+
       return {
         myself: msg.Sender.toString() == from,
         message: msg.message,
+        time: `${formattedDate} ${formattedTime}`,
       };
     });
 
@@ -69,5 +82,22 @@ router.get("/message/:user1id/:user2id", async (req, res) => {
         return res.status(500).status("Internal server error")
   }
 });
+
+// Search users by name and account type 
+router.get("/message/search/:account/:name", async (req, res) => {
+  try {
+    const name = req.params.name;
+    const account = req.params.account;
+    const users = await USER.find({
+      account: account, // Change to the appropriate account type if needed
+      name: { $regex: name, $options: "i" }, // Case-insensitive search using regular expression
+    });
+
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 module.exports = router;

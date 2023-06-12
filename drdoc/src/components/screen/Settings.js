@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../css/Setting.css";
 import { Link } from "react-router-dom";
-
+import Lottie from "react-lottie";
+import UserImageGif from "../lottiejson/user.json";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 import ProfilePic from "./ProfilePic";
 import ChangeAccount from "../ChangeAccount";
-import image from "../img/images.png";
 
 function Settings() {
   const [changePic, setChangePic] = useState(false);
@@ -36,6 +36,15 @@ function Settings() {
     }
   };
   const { setModalOpen } = useContext(LoginContext);
+  //lottis file run
+  const options = {
+    loop: true,
+    autoplay: true,
+    animationData: UserImageGif,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   const SettingData = () => {
     if (token) {
       return [
@@ -43,10 +52,19 @@ function Settings() {
           <div className="center-container" style={{}}>
             <div className=" container-setting">
               <div className="user-image">
-                <img
-                  src={loggeduser.Photo || image}
-                  alt="this image contains user-image"
-                />
+                {loggeduser.Photo ? (
+                  <img
+                    src={loggeduser.Photo}
+                    alt="this image contains user-image"
+                  />
+                ) : (
+                  <Lottie
+                    options={options}
+                    height={150}
+                    width={150}
+                    isPaused={false}
+                  />
+                )}
                 <div className="content">
                   <h3 className="name">{loggeduser.name}</h3>
                   <p className="username">{loggeduser.userName}</p>
@@ -93,9 +111,7 @@ function Settings() {
                       <a
                         className=" logout effect effect-4"
                         onClick={() =>
-                          navigate(
-                            `/${loggeduser.userName}/myproducts`
-                          )
+                          navigate(`/${loggeduser.userName}/myproducts`)
                         }
                       >
                         View My Products

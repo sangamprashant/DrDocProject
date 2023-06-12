@@ -21,14 +21,9 @@ export default function Bar({ login }) {
               Message
             </a>
           </Link>
-          <Link to="/msg" class="nav-item">
-            <a class="nav-link" aria-current="page">
-              msg
-            </a>
-          </Link>
           <Link to="/createpost" class="nav-item">
             <a class="nav-link" aria-current="page">
-              CreatePost
+              Upload Document
             </a>
           </Link>
           <Link to="/store" class="nav-item">

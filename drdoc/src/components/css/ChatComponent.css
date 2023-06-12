@@ -1,28 +1,70 @@
 #chat3 .form-control {
-    border-color: transparent;
-    }
-    
-    #chat3 .form-control:focus {
-    border-color: transparent;
-    box-shadow: inset 0px 0px 0px 1px transparent;
-    }
-    
-    .badge-dot {
-    border-radius: 50%;
-    height: 10px;
-    width: 10px;
-    margin-left: 2.9rem;
-    margin-top: -.75rem;
-    }
+  border-color: transparent;
+}
 
+#chat3 .form-control:focus {
+  border-color: transparent;
+  box-shadow: inset 0px 0px 0px 1px transparent;
+}
 
+.badge-dot {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  margin-left: 2.9rem;
+  margin-top: -0.75rem;
+}
+.sendButton{
+  margin-top: 3px;
+  width: 100px;
+  height: 45px;
+  border-radius: 20px;
+}
+.input-group > input[type="search"] {
+  margin-top: 15px;
+}
 
-    .hinderChat{
-        display: none;
-      }
-      /* for laptop */
-      @media screen and (min-width: 992px) {
-        .hinderChat{
-          display:block;
-        }
-    }
+.input-group > input {
+  background-color: rgb(236, 235, 235);
+}
+
+.chatTopColor {
+  background-color: rgb(194, 179, 221);
+}
+.RightBox,
+.LeftBox,
+.UserList {
+  border: 1px solid rgba(184, 183, 183, 0.303);
+  border-radius: 20px;
+  padding: 0px 15px 0px 15px;
+  margin: 5px 0px 5px 0px;
+  background-color: rgba(239, 239, 239, 0.53);
+}
+.RightBox:hover,
+.LeftBox:hover,
+.UserList:hover {
+  border: 1px solid rgba(184, 183, 183, 0.46);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.247);
+}
+.paddingForList{
+  padding-left:  15px;
+  padding-right: 15px;
+}
+.hinderChat {
+  display: none;
+}
+.DivideLine {
+  border-right: 1px solid rgba(184, 183, 183, 0.303);
+}
+.DivideBottom {
+  border-bottom: 1px solid rgba(184, 183, 183, 0.303);
+}
+/* for laptop */
+@media screen and (min-width: 992px) {
+  .hinderChat {
+    display: block;
+  }
+  .backToUser {
+    display: none;
+  }
+}

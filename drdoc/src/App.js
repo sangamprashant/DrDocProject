@@ -14,7 +14,6 @@ import { LoginContext } from "./context/LoginContext";
 import Settings from "./components/screen/Settings";
 import Modal from "./components/Modal";
 import OtherUserProfile from "./components/OtherUserProfile";
-import Chat from "./components/Chat";
 import Store from "./components/Store";
 import Dashboard from "./components/Dashboard";
 import MyCart from "./components/Cart";
@@ -43,8 +42,7 @@ function App() {
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/createpost" element={<Createpost />} />
             <Route exact path="/profile" element={<OtherUserProfile />} />
-            <Route exact path="/msg" element={<ChatComponent />} />
-            <Route exact path="/message" element={<Chat />} />
+            <Route exact path="/message" element={<ChatComponent />} />
             <Route exact path="/store" element={<Store />} />
             <Route exact path=":userName/makeorder" element={<MakeOrder />} />
             <Route exact path=":userName/my" element={<MakeOrder />} />
