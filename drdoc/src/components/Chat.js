@@ -6,8 +6,7 @@ import { io } from "socket.io-client";
 
 function Chat() {
   const navigate = useNavigate();
-  const [messageContainerHinder, setMessageContainerHinder] =
-    useState("hinder");
+  const [messageContainerHinder, setMessageContainerHinder] = useState("hinder");
   const [contactContainerHinder, setContactContainerHinder] = useState("");
   const chatContainerRef = useRef(null);
   const [accountType, setAccountType] = useState();
@@ -26,7 +25,7 @@ function Chat() {
   }, [showMessage]);
 
   useEffect(() => {
-    setAccountType(loggedInUser.account === "Doctor" ? "regular" : "doctor");
+    setAccountType(loggedInUser.account === "doctor" ? "regular" : "doctor");
   }, [loggedInUser.account]);
 
   useEffect(() => {

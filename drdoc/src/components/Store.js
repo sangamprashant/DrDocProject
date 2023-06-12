@@ -7,6 +7,7 @@ export default function Store() {
   const [products, setProducts] = useState([]);
   const [type, setType] = useState("all");
   const navigate = useNavigate();
+  const loggeduser = JSON.parse(localStorage.getItem("user"));
 
   // Toast functions
   const notifyA = (msg) => toast.error(msg);
@@ -54,8 +55,8 @@ export default function Store() {
               type="text"
               placeholder="search your medicine"
             />
-            <input  type="button" placeholder="Cart" value="Cart"/>
-            <input  type="button" placeholder="Cart" value="My Orders"/>
+            <input onClick={() => navigate(`/${loggeduser.userName}/cart`)}  type="button" placeholder="Cart" value="Cart"/>
+            <input  onClick={() => navigate(`/${loggeduser.userName}/myorders`)}  type="button" placeholder="Cart" value="My Orders"/>
             <select
            
               value={type}

@@ -112,7 +112,7 @@
     border-radius: 50px;
     
   }
-.store-nav-button input,select {
+.store-nav-button input, .store-nav-button select {
   margin: 5px;
   padding: 10px;
   border-radius: 20px;

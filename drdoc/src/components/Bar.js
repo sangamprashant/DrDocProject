@@ -21,6 +21,11 @@ export default function Bar({ login }) {
               Message
             </a>
           </Link>
+          <Link to="/msg" class="nav-item">
+            <a class="nav-link" aria-current="page">
+              msg
+            </a>
+          </Link>
           <Link to="/createpost" class="nav-item">
             <a class="nav-link" aria-current="page">
               CreatePost
@@ -58,8 +63,8 @@ export default function Bar({ login }) {
 
   return (
     <div style={{ marginTop: "-200px", zIndex: "999" }}>
-      <nav class="navbar navbar-expand-lg  header">
-        <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg  header" >
+        <div class="container-fluid" >
           <img src={logo} alt="" className="logo-image-brand " />
           <i className="nav__nav__logo">DrDoc</i>
           <button

@@ -23,6 +23,7 @@ import AddMedicine from "./components/AddMedicine";
 import MyProduct from "./components/MyProduct";
 import ProductOpen from "./components/ProductOpen";
 import MakeOrder from "./components/MakeOrder";
+import ChatComponent from "./components/ChatComponent";
 
 function App() {
   const [userLogin, setUserLogin] = useState(false);
@@ -42,6 +43,7 @@ function App() {
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/createpost" element={<Createpost />} />
             <Route exact path="/profile" element={<OtherUserProfile />} />
+            <Route exact path="/msg" element={<ChatComponent />} />
             <Route exact path="/message" element={<Chat />} />
             <Route exact path="/store" element={<Store />} />
             <Route exact path=":userName/makeorder" element={<MakeOrder />} />
