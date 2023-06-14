@@ -36,8 +36,16 @@ mongoose.connection.on("error", () => {
   console.log("Failed to connect to mongo");
 });
 
-// serving the frontend
- app.use(express.static(path.join(__dirname, "./drdoc/build")));
+// Serve the frontend
+app.use(express.static(path.join(__dirname, "drdoc/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "drdoc/build/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
+
 
 const io = socket(server, {
   cors: {
