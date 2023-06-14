@@ -1,15 +1,21 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "index.js"
-    }
-  ]
-}
+    "version": 2,
+    "builds": [
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "drdoc/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "drdoc/build"
+        }
+      }
+    ],
+    "routes": [
+      { "src": "/api/(.*)", "dest": "index.js" },
+      { "src": "/(.*)", "dest": "drdoc/build/$1" }
+    ]
+  }
+  
