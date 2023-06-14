@@ -16,7 +16,7 @@ const MakeOrder = () => {
   const notifyB = (msg) => toast.success(msg);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/api/cart/items", {
+    fetch("/api/cart/items", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const MakeOrder = () => {
   }, 0);
 
   const PlaceOrder = (deliveryAddress, name, mobileNumber, totalPrice) => {
-    fetch(`http://localhost:5000/api/order/done`, {
+    fetch(`/api/order/done`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",

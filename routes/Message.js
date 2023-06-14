@@ -71,6 +71,7 @@ router.get("/message/:user1id/:user2id", async (req, res) => {
       });
 
       return {
+        _id:msg._id,
         myself: msg.Sender.toString() == from,
         message: msg.message,
         time: `${formattedDate} ${formattedTime}`,
@@ -98,6 +99,25 @@ router.get("/message/search/:account/:name", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+// DELETE /api/message/:messageId
+router.delete("/api/message/delete/:messageId", async (req, res) => {
+  try {
+    const messageId = req.params.messageId;
 
+    // Find the message by its ID
+    const message = await MESSAGE.findById(messageId);
+
+    // If the message doesn't exist, return an error response
+    if (!message) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+    await message.remove();
+
+    res.json({ message: "Message deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 module.exports = router;

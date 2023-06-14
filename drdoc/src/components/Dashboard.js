@@ -58,7 +58,7 @@ const StatusUpdate = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/orders/${orderId}/status`,
+        `/api/orders/${orderId}/status`,
         {
           method: "PUT",
           headers: {
@@ -83,7 +83,7 @@ const StatusUpdate = () => {
 
   useEffect(() => {
     async function fetchOrders() {
-      const response = await fetch(`http://localhost:5000/api/orders/status`, {
+      const response = await fetch(`/api/orders/status`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",

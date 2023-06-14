@@ -5,6 +5,7 @@ import UserImageGif from "./lottiejson/user.json";
 import "./css/Contact.css";
 import "./css/Chatcontainer.css";
 import "./css/ChatComponent.css";
+import { toast } from "react-toastify";
 import { io } from "socket.io-client";
 
 function ChatComponent() {
@@ -24,7 +25,11 @@ function ChatComponent() {
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [accountSearch, setAccountSearch] = useState("");
-
+  const [clickToDelete, setClickToDelete] = useState();
+  const [deleteButtonOpen, setDeleteButtonOpen] = useState(false);
+  // Toast functions
+  const notifyA = (msg) => toast.error(msg);
+  const notifyB = (msg) => toast.success(msg);
   useEffect(() => {
     setMessageContainerHinder(chatOpen ? "" : "hinderChat");
     setContactContainerHinder(chatOpen ? "hinderChat" : "");
@@ -36,7 +41,7 @@ function ChatComponent() {
 
   useEffect(() => {
     if (currentChatUser !== "") {
-      socket.current = io("http://localhost:5000");
+      socket.current = io("/");
       socket.current.emit("addUser", loggedInUser._id);
     }
   });
@@ -44,7 +49,7 @@ function ChatComponent() {
     async function fetchUsers() {
       try {
         const response = await fetch(
-          `http://localhost:5000/message/${accountType}`,
+          `/message/${accountType}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -66,7 +71,7 @@ function ChatComponent() {
     async function fetchMessages() {
       try {
         const response = await fetch(
-          `http://localhost:5000/message/${loggedInUser._id}/${currentChatUser._id}`,
+          `/message/${loggedInUser._id}/${currentChatUser._id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -95,7 +100,7 @@ function ChatComponent() {
       from: loggedInUser._id,
       message: inputMessage,
     });
-    fetch("http://localhost:5000/message/send", {
+    fetch("/message/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,7 +152,7 @@ function ChatComponent() {
     async function fetchUsers() {
       try {
         const response = await fetch(
-          `http://localhost:5000/message/search/${accountType}/${value}`,
+          `/message/search/${accountType}/${value}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -165,6 +170,23 @@ function ChatComponent() {
     }
   };
 
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      // Send a DELETE request to your backend API
+      await fetch(`/api/message/delete/${messageId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      });
+
+      // Update the messages state by filtering out the deleted message
+      setMessages(messages.filter((msg) => msg._id !== messageId));
+      notifyB("Message Deleted Successfully");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="row">
       <div className="col-md-12">
@@ -213,6 +235,7 @@ function ChatComponent() {
                                   setChatOpen(true);
                                   setCurrentChatUser(item);
                                   setMessages([]);
+                                  setDeleteButtonOpen(false);
                                 }}
                               >
                                 <a className="d-flex justify-content-between">
@@ -457,52 +480,72 @@ function ChatComponent() {
                                       </div>
                                     </div>
                                   ) : (
-                                    <div
-                                      key={msg._id}
-                                      className="RightBox"
-                                      ref={chatContainerRef}
-                                    >
-                                      <div className="d-flex justify-content-between">
-                                        <p className="small mb-1 text-muted">
-                                          {msg.time ? msg.time : "Just Now"}
-                                        </p>
-                                        <p className="small mb-1">
-                                          {" "}
-                                          {loggedInUser.name}
-                                        </p>
-                                      </div>
-                                      <div className="d-flex flex-row justify-content-end  pt-1">
-                                        <div>
-                                          <p className="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">
-                                            {msg.message}
+                                    <div>
+                                      <div
+                                        key={msg._id}
+                                        className="RightBox"
+                                        ref={chatContainerRef}
+                                        onClick={() => {
+                                          setClickToDelete(msg._id);
+                                          setDeleteButtonOpen(
+                                            !deleteButtonOpen
+                                          );
+                                        }}
+                                      >
+                                        <div className="d-flex justify-content-between">
+                                          <p className="small mb-1 text-muted">
+                                            {" "}
+                                            {msg.time ? msg.time : "Just Now"}
+                                          </p>
+                                          <p className="small mb-1">
+                                            {" "}
+                                            {loggedInUser.name}
                                           </p>
                                         </div>
-                                        {loggedInUser.Photo ? (
-                                          <img
-                                            className="userProfileimg"
-                                            src={[loggedInUser.Photo]}
-                                            alt="avatar 1"
-                                          />
-                                        ) : (
-                                          <div
-                                            style={{
-                                              width: "45px",
-                                              height: "100%",
-                                            }}
-                                          >
-                                            <Lottie
-                                              options={options}
-                                              height={50}
-                                              width={50}
-                                              isPaused={false}
-                                              eventListeners={[
-                                                {
-                                                  eventName: "complete",
-                                                },
-                                              ]}
-                                            />
+                                        <div className="d-flex flex-row justify-content-end  pt-1">
+                                          <div>
+                                            <p className="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">
+                                              {msg.message}
+                                            </p>
                                           </div>
-                                        )}
+                                          {loggedInUser.Photo ? (
+                                            <img
+                                              className="userProfileimg"
+                                              src={[loggedInUser.Photo]}
+                                              alt="avatar 1"
+                                            />
+                                          ) : (
+                                            <div
+                                              style={{
+                                                width: "45px",
+                                                height: "100%",
+                                              }}
+                                            >
+                                              <Lottie
+                                                options={options}
+                                                height={50}
+                                                width={50}
+                                                isPaused={false}
+                                                eventListeners={[
+                                                  {
+                                                    eventName: "complete",
+                                                  },
+                                                ]}
+                                              />
+                                            </div>
+                                          )}
+                                          {deleteButtonOpen &&
+                                            msg._id === clickToDelete && (
+                                              <button
+                                                className="delete-icon"
+                                                onClick={() => {
+                                                  handleDeleteMessage(msg._id);
+                                                }}
+                                              >
+                                                <i className="fa fa-trash"></i>
+                                              </button>
+                                            )}
+                                        </div>
                                       </div>
                                     </div>
                                   )}

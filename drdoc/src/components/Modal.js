@@ -12,7 +12,7 @@ export default function Modal({ setModalOpen }) {
           <div className="modalHeader">
             <h5 className="heading">Confirm</h5>
           </div>
-          
+
           {/* modal content */}
           <div className="modalContent">Are you really want to log Out ?</div>
           <div className="modalActions">
@@ -34,8 +34,7 @@ export default function Modal({ setModalOpen }) {
             </div>
           </div>
         </div>
-     
-</div>
+      </div>
     </div>
   );
 }

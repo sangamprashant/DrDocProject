@@ -11,7 +11,7 @@ const MyCart = () => {
   const notifyB = (msg) => toast.success(msg);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/api/cart/items", {
+    fetch("/api/cart/items", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const MyCart = () => {
   // remove from carta
   const removeItemFromCart = (cartId, itemId) => {
     console.log(cartId, itemId);
-    fetch(`http://localhost:5000/api/cart/${cartId}/item/${itemId}`, {
+    fetch(`/api/cart/${cartId}/item/${itemId}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const MyCart = () => {
     console.log(itemId);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/cart/add/${itemId}`,
+        `/api/cart/add/${itemId}`,
         {
           method: "PUT",
           headers: {
@@ -93,7 +93,7 @@ const MyCart = () => {
     console.log(itemId);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/cart/remove/${itemId}`,
+        `/api/cart/remove/${itemId}`,
         {
           method: "PUT",
           headers: {

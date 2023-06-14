@@ -13,7 +13,7 @@ export default function Home() {
   });
   const [pic, setPic] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/myposts", {
+    fetch("/myposts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -30,7 +30,10 @@ export default function Home() {
         <>
           <div className="home">
             <div className="user-header-wrapper">
-              <div className="user-header-inner" style={{display:"flex" ,justifyContent:"center"}}>
+              <div
+                className="user-header-inner"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 <div className="uh-left-user">
                   <div className="uh-image">
                     <img
@@ -88,8 +91,8 @@ export default function Home() {
                         <div id="iov1" className="img-overlay-wrapper">
                           <div className="img-btns">
                             <p>
-                              465 <i className="uil uil-heart-alt"></i> &nbsp&nbsp
-                              25 <i className="uil uil-comment"></i>
+                              465 <i className="uil uil-heart-alt"></i>{" "}
+                              &nbsp&nbsp 25 <i className="uil uil-comment"></i>
                             </p>
                           </div>
                           <div className="img-overlay"></div>

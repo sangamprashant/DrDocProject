@@ -45,7 +45,7 @@ export default function AddMedicine() {
   useEffect(() => {
     // saving post to mongodb
     if (url) {
-      fetch("http://localhost:5000/api/setting/product/upload", {
+      fetch("/api/setting/product/upload", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

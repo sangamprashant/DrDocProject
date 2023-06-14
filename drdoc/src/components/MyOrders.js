@@ -12,7 +12,7 @@ const MyOrders = () => {
   const cancelOrder = async (orderId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/orders/${orderId}/cancel`,
+        `/api/orders/${orderId}/cancel`,
         {
           method: "PUT",
           headers: {
@@ -38,7 +38,7 @@ const MyOrders = () => {
   useEffect(() => {
     async function fetchOrders() {
       const response = await fetch(
-        `http://localhost:5000/api/${loggeduser.userName}/myorders`,
+        `/api/${loggeduser.userName}/myorders`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -58,14 +58,16 @@ const MyOrders = () => {
         <section className="payment-form ">
           <div className="container">
             <div className="block-heading">
-              <h2 style={{textAlign:"center"}}>My Orders</h2>
+              <h2 style={{ textAlign: "center" }}>My Orders</h2>
 
-              <p style={{textAlign:"center"}}>Thank you for purchasing from our app :)</p>
+              <p style={{ textAlign: "center" }}>
+                Thank you for purchasing from our app :)
+              </p>
             </div>
             <form>
               <div className="products">
                 <h3 className="title">Items</h3>
-                <hr/>
+                <hr />
                 {orders.map((order) => (
                   <div key={order._id}>
                     <h2>OrderId: #{order._id}</h2>

@@ -30,7 +30,7 @@ export default function ProfilePic({ handleChangeProfile }) {
 
   const postPic = () => {
     if (url) {
-      fetch("http://localhost:5000/uploadProfilePic", {
+      fetch("/uploadProfilePic", {
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export default function ProfilePic({ handleChangeProfile }) {
   };
 
   const removeProfilePic = () => {
-    fetch("http://localhost:5000/removeProfilePic", {
+    fetch("/removeProfilePic", {
       method: "put",
       headers: {
         "Content-Type": "application/json",

@@ -6,7 +6,16 @@
   border-color: transparent;
   box-shadow: inset 0px 0px 0px 1px transparent;
 }
-
+.delete-icon {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  margin: 0px 15px 0px 15px;
+}
+.delete-icon>i{
+  font-size: 20px;
+}
 .badge-dot {
   border-radius: 50%;
   height: 10px;

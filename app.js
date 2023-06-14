@@ -37,11 +37,11 @@ mongoose.connection.on("error", () => {
 });
 
 // serving the frontend
- app.use(express.static(path.join(__dirname, "./demo/build")));
+ app.use(express.static(path.join(__dirname, "./drdoc/build")));
 
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "/",
     credentials: true,
   },
 });

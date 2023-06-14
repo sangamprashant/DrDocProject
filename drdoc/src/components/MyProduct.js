@@ -7,7 +7,7 @@ export default function MyProduct() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/myproduct", {
+    fetch("/api/myproduct", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -17,7 +17,7 @@ export default function MyProduct() {
   }, []);
 
   return (
-    <div >
+    <div>
       <div className="UserProduct">
         <h1>My Products</h1>
         <div className="productBoxContainer">

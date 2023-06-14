@@ -25,7 +25,7 @@ export default function ProductOpen({ login }) {
   const isInCart = items.find((item) => item.product._id === productId);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/product/open/${productId}`, {
+    fetch(`/api/product/open/${productId}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -34,7 +34,7 @@ export default function ProductOpen({ login }) {
       .then((result) => setProduct([result]));
 
     // Fetch cart details
-    fetch('http://localhost:5000/api/cart/items', {
+    fetch('/api/cart/items', {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function ProductOpen({ login }) {
     if (login || token) {
       // Sending data to server
       try {
-        const response = await fetch("http://localhost:5000/api/cart/add", {
+        const response = await fetch("/api/cart/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

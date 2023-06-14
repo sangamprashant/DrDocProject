@@ -5,7 +5,7 @@ export default function ProfilePic({ handleChangeAccount }) {
   const [account, setAccount] = useState("");
 
   const handleAccountChange = () => {
-    fetch("http://localhost:5000/api/change/account", {
+    fetch("/api/change/account", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
