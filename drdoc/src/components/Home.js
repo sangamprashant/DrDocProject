@@ -15,7 +15,7 @@ export default function Home() {
   });
   const [pic, setPic] = useState([]);
   useEffect(() => {
-    fetch("/myposts", {
+    fetch("/api/myposts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -77,13 +77,7 @@ export default function Home() {
                       <span>{pic.length}</span> Posts
                     </a>
                   </div>
-                  <div className="user-bio">
-                    <p>
-                      This is the user biography 😄
-                      <br />
-                      It also has another line.
-                    </p>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -105,8 +99,7 @@ export default function Home() {
               <>
                 <div className="zero-post-message ">
                   <p>
-                    Share your experiences and moments with your friends! Start
-                    by uploading your first post.
+                    Upload your medical descriptions.
                   </p>
                 </div>
               </>

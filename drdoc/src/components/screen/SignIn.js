@@ -30,7 +30,7 @@ export default function SignIn() {
       return;
     }
     // Sending data to server
-    fetch("/signin", {
+    fetch("/api/signin", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

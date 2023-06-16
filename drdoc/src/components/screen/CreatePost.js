@@ -26,7 +26,7 @@ export default function Createpost() {
     // saving post to mongodb
     if (url) {
 
-      fetch("/createpost", {
+      fetch("/api/createpost", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

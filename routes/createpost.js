@@ -7,7 +7,7 @@ const USER = mongoose.model("DRDOCUSER")
 
 
 // Route
-router.post("/createpost", requirelogin, (req, res) => {
+router.post("/api/createpost", requirelogin, (req, res) => {
     const { body, pic } = req.body;
     console.log(pic)
     if (!body || !pic) {
@@ -36,7 +36,7 @@ router.get("/allposts",(req, res) => {
 })
 
 //
-router.get("/myposts", requirelogin, (req, res) => {
+router.get("/api/myposts", requirelogin, (req, res) => {
     POST.find({ postedBy: req.user._id })
         .populate("postedBy", "_id name userName email")
         .populate("postedTo", "_id name userName email")

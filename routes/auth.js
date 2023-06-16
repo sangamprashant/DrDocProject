@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const requirelogin = require("../middleware/requirelogin");
 
 
-  router.post("/signup", (req, res) => {
+  router.post("/api/signup", (req, res) => {
     const { name, userName, email, password, account } = req.body;
     console.log(account, name);
 
@@ -44,7 +44,7 @@ const requirelogin = require("../middleware/requirelogin");
       }
     );
   }),
-  router.post("/signin", (req, res) => {
+  router.post("/api/signin", (req, res) => {
     const { email, password } = req.body;
 
     if (!password || !email) {

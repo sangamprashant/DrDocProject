@@ -3,6 +3,7 @@ import "./css/landing.css";
 import home from "./img/home copy.png";
 import aboutimg from "./img/about-img.png";
 import prashant from "./img/man.jpg";
+import muskaan from "./img/muskaan.jpg";
 import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
@@ -339,7 +340,7 @@ export default function Landing() {
                 </div>
                 <div className="col-md-6 col-md-4 col-lg-3">
                   <div className="team-block bottom">
-                    <img src={prashant} className="img-responsive" alt="img" />
+                    <img src={muskaan} className="img-responsive" alt="img" />
                     <div className="team-content">
                       <ul
                         className="list-unstyled"
@@ -406,51 +407,36 @@ export default function Landing() {
                       <div className="carousel-inner" role="listbox">
                         <div className="carousel-item  active">
                           <div className="top-top">
-                            <h2>Our Users Speack volumes us</h2>
+                            <h2> Our Users Speak Volumes About Us</h2>
                             <p>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has been the
-                              industry's standard dummy text ever since the
-                              1500s, when an unknown printer took a galley of
-                              type and scrambled it to make a type specimen
-                              book. It has survived not only five centuries.
+                            "I have been using the XYZ Medical App for several months now, and it has truly transformed the way I manage my health. The app's user-friendly interface makes it easy to navigate and access various features. From booking appointments with doctors to tracking my medication schedule, this app has become an indispensable tool for me. I appreciate the ability to securely store and access my medical records, test results, and prescriptions on my phone. The app also provides insightful health tips and reminders, helping me stay proactive about my well-being. Highly recommended!"
                             </p>
                             <h4>
-                              Kimberly Tran<span>manager</span>
+                              Prashant Srivastav<span>manager</span>
                             </h4>
                           </div>
                         </div>
 
                         <div className="carousel-item ">
                           <div className="top-top">
-                            <h2>Our Users Speack volumes us</h2>
+                            <h2> Our Users Speak Volumes About Us</h2>
                             <p>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has been the
-                              industry's standard dummy text ever since the
-                              1500s, when an unknown printer took a galley of
-                              type and scrambled it to make a type specimen
-                              book. It has survived not only five centuries.
+                            "As a healthcare professional, I find the XYZ Medical App incredibly useful in my practice. It allows me to securely communicate with patients, review their medical history, and provide virtual consultations. The app's telemedicine feature has been a game-changer, especially during the COVID-19 pandemic, as it enables me to offer remote care to patients while maintaining high-quality healthcare delivery. The ability to access a wide range of medical references, drug information, and clinical guidelines within the app saves me time and enhances my efficiency. I applaud the developers for creating such a comprehensive and reliable medical app."
                             </p>
                             <h4>
-                              Henderson<span>manager</span>
+                              Muskaan<span>manager</span>
                             </h4>
                           </div>
                         </div>
 
                         <div className="carousel-item ">
                           <div className="top-top">
-                            <h2>Our Users Speack volumes us</h2>
+                            <h2> Our Users Speak Volumes About Us</h2>
                             <p>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has been the
-                              industry's standard dummy text ever since the
-                              1500s, when an unknown printer took a galley of
-                              type and scrambled it to make a type specimen
-                              book. It has survived not only five centuries.
+                            "I recently started using the XYZ Medical App, and it has exceeded my expectations. One feature that stands out to me is the symptom checker. It allows me to input my symptoms and receive potential diagnoses and recommended actions. While it doesn't replace a doctor's opinion, it provides helpful guidance when I have concerns. Additionally, the app's integration with fitness trackers and wearable devices helps me monitor my daily activity and set health goals. The option to connect with a community of users facing similar health conditions adds a supportive touch. Kudos to the developers for designing an app that empowers individuals to take control of their health."
                             </p>
                             <h4>
-                              David Spark<span>manager</span>
+                              Sangam<span>developer</span>
                             </h4>
                           </div>
                         </div>

@@ -44,7 +44,7 @@ export default function SignUp() {
     }
 
     // Sending data to server
-    fetch("/signup", {
+    fetch("/api/signup", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
