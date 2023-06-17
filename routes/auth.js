@@ -121,5 +121,45 @@ router.put("/removeProfilePic", requirelogin, (req, res) => {
       return res.status(422).json({ error: "Failed to update Profile" });
     });
 });
+// Endpoint to check username availability
+router.post("/api/check-username", (req, res) => {
+  const { username } = req.body;
+
+  // Check if the username is already taken
+  USER.findOne({ userName: username })
+    .then((user) => {
+      if (user) {
+        // Username is taken
+        return res.json({ available: false });
+      } else {
+        // Username is available
+        return res.json({ available: true });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    });
+});
+// Endpoint to check email availability
+router.post("/api/check-email", (req, res) => {
+  const { Email } = req.body;
+
+  // Check if the username is already taken
+  USER.findOne({ email: Email })
+    .then((user) => {
+      if (user) {
+        // Username is taken
+        return res.json({ available: false });
+      } else {
+        // Username is available
+        return res.json({ available: true });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    });
+});
 
 module.exports = router;

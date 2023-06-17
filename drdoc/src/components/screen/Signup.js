@@ -21,6 +21,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   const [errorPassword, seterrorPassword] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(null);
+  const [isAvailableEmail, setIsAvailableEmail] = useState(null);
 
   // Toast functions
   const notifyA = (msg) => toast.error(msg);
@@ -68,6 +70,48 @@ export default function SignUp() {
         console.log(data);
       });
   };
+  //username avibility check
+  const handelUserNameCheck = async (checkUserName) => {
+    try {
+      const response = await fetch("/api/check-username", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: checkUserName }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsAvailable(data.available);
+      } else {
+        console.log("Error:", response.status);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  //email aivbility check
+  const handelEmailCheck = async (checkEmail) => {
+    try {
+      const response = await fetch("/api/check-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ Email: checkEmail }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsAvailableEmail(data.available);
+      } else {
+        console.log("Error:", response.status);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
 
   return (
     <div className="signBackground">
@@ -100,8 +144,14 @@ export default function SignUp() {
                   value={userName}
                   onChange={(e) => {
                     setUserName(e.target.value);
+                    handelUserNameCheck(e.target.value);
                   }}
                 />
+                {isAvailable === null ? null : isAvailable ? (
+                  <p style={{ color: "green" }}>Username is available</p>
+                ) : (
+                  <p style={{ color: "red" }}>Username is not available</p>
+                )}
               </div>
               <div>
                 <select
@@ -126,8 +176,14 @@ export default function SignUp() {
                   placeholder="Email"
                   onChange={(e) => {
                     setEmail(e.target.value);
+                    handelEmailCheck(e.target.value);
                   }}
                 />
+                {isAvailableEmail === null ? null : isAvailableEmail ? (
+                  <p style={{ color: "green" }}>Email is available</p>
+                ) : (
+                  <p style={{ color: "red" }}>Email is not available</p>
+                )}
               </div>
               <div>
                 <input
