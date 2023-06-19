@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.fa4376e6.css",
-    "main.js": "/static/js/main.89e62912.js",
+    "main.js": "/static/js/main.04b17b0a.js",
     "static/media/man.jpg": "/static/media/man.0768dfe92be302da209d.jpg",
     "static/media/muskaan.jpg": "/static/media/muskaan.aa3882e09177e006ee37.jpg",
     "static/media/video-bg.jpg": "/static/media/video-bg.07985afcb05985b72778.jpg",
@@ -12,10 +12,10 @@
     "static/media/home copy.png": "/static/media/home copy.53a50858ebbc796f2f6a.png",
     "index.html": "/index.html",
     "main.fa4376e6.css.map": "/static/css/main.fa4376e6.css.map",
-    "main.89e62912.js.map": "/static/js/main.89e62912.js.map"
+    "main.04b17b0a.js.map": "/static/js/main.04b17b0a.js.map"
   },
   "entrypoints": [
     "static/css/main.fa4376e6.css",
-    "static/js/main.89e62912.js"
+    "static/js/main.04b17b0a.js"
   ]
 }

@@ -165,7 +165,7 @@ router.post("/api/check-email", (req, res) => {
     });
 });
 //sending email to verify the user
-router.post("/api/send-email", (req, res) => {
+router.post("/api/sendemail", (req, res) => {
   const { to, name } = req.body;
   const subject = "Your One-Time Password (OTP) for Verification";
 

@@ -69,7 +69,7 @@ export default function SignUp() {
       setSentOtp(false);
       setEnterOtp(false);
 
-      fetch("/api/send-email", {
+      fetch("/api/sendemail", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
