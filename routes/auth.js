@@ -3,47 +3,47 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const USER = mongoose.model("DRDOCUSER");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const requirelogin = require("../middleware/requirelogin");
 
+router.post("/api/signup", (req, res) => {
+  const { name, userName, email, password, account } = req.body;
+  console.log(account, name);
 
-  router.post("/api/signup", (req, res) => {
-    const { name, userName, email, password, account } = req.body;
-    console.log(account, name);
+  if (!name || !userName || !password || !email || !account) {
+    return res.status(422).json({ error: "Please add all fields" });
+  }
 
-    if (!name || !userName || !password || !email || !account) {
-      return res.status(422).json({ error: "Please add all fields" });
-    }
-
-    USER.findOne({ $or: [{ email: email }, { userName: userName }] }).then(
-      (SavedUser) => {
-        if (SavedUser) {
-          return res
-            .status(422)
-            .json({ error: "User already exist with user name or email" });
-        }
-
-        bcrypt.hash(password, 12).then((hashedPassword) => {
-          const user = new USER({
-            name,
-            userName,
-            email,
-            account,
-            password: hashedPassword,
-          });
-
-          user
-            .save()
-            .then((user) => {
-              res.json({ message: "Registered Successfully" });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        });
+  USER.findOne({ $or: [{ email: email }, { userName: userName }] }).then(
+    (SavedUser) => {
+      if (SavedUser) {
+        return res
+          .status(422)
+          .json({ error: "User already exist with user name or email" });
       }
-    );
-  }),
+
+      bcrypt.hash(password, 12).then((hashedPassword) => {
+        const user = new USER({
+          name,
+          userName,
+          email,
+          account,
+          password: hashedPassword,
+        });
+
+        user
+          .save()
+          .then((user) => {
+            res.json({ message: "Registered Successfully" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    }
+  );
+}),
   router.post("/api/signin", (req, res) => {
     const { email, password } = req.body;
 
@@ -58,7 +58,10 @@ const requirelogin = require("../middleware/requirelogin");
         .compare(password, savedUser.password)
         .then((match) => {
           if (match) {
-            const token = jwt.sign({ _id: savedUser.id }, process.env.JWT_SECRET);
+            const token = jwt.sign(
+              { _id: savedUser.id },
+              process.env.JWT_SECRET
+            );
             const { _id, name, email, userName, account, Photo } = savedUser;
             res.json({
               token,
@@ -160,6 +163,55 @@ router.post("/api/check-email", (req, res) => {
       console.log(err);
       return res.status(500).json({ error: "Internal server error" });
     });
+});
+//sending email to verify the user
+router.post("/api/send-email", (req, res) => {
+  const { to, name } = req.body;
+  const subject = "Your One-Time Password (OTP) for Verification";
+
+  const otp = Math.floor(100000 + Math.random() * 900000);
+
+  const message = `Dear ${name},
+
+Thank you for choosing our platform. As part of the registration process, we require you to verify your account using a One-Time Password (OTP). Please find your OTP below:
+
+OTP: ${otp}
+
+Please enter this OTP in the designated field to complete your account verification. Please note that the OTP is valid for a limited time and should be kept confidential. Do not share this OTP with anyone.
+
+If you did not initiate this registration process or have any concerns, please disregard this email.
+
+Thank you for your cooperation.
+
+Best regards,
+DrDoc`;
+
+  // Create a Nodemailer transporter
+  let transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.EMAIL, // Replace with your own email address
+      pass: process.env.EMAIL_PASSWORD, // Replace with your own email password
+    },
+  });
+
+  // Set up email data
+  let mailOptions = {
+    from: `"DrDoc" <${process.env.EMAIL}>`, // Replace with your own name and email address
+    to: to,
+    subject: subject,
+    text: message,
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Failed to send email" });
+    }
+    console.log("Email sent: %s", info.messageId);
+    res.json({ message: "Email sent successfully", otp: otp });
+  });
 });
 
 module.exports = router;
