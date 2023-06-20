@@ -216,4 +216,24 @@ DrDoc`;
   });
 });
 
+//api for android app
+//api to get users Profile Photo 
+// Get User Profile Photo
+router.get("/api/user/:userId/profilephoto", (req, res) => {
+  const { userId } = req.params;
+
+  USER.findById(userId)
+    .select("Photo")
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      res.json({ photo: user.Photo });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    });
+});
 module.exports = router;
