@@ -44,7 +44,19 @@ router.get("/api/myposts", requirelogin, (req, res) => {
             res.json(myposts)
         })
 })
-
+// API endpoint to get posts by the logged-in user
+router.get("/api/posts", requirelogin, (req, res) => {
+    const userId = req.user._id;
+    // Retrieve the desired fields (photo, body, and createdAt) from the database
+    POST.find({ postedTo: userId }, "photo body createdAt")
+      .populate("postedBy", "_id name") // Populate the "postedBy" field with user data (only include _id and name fields)
+      .exec((err, posts) => {
+        if (err) {
+          return res.status(400).json({ error: err });
+        }
+        res.json(posts);
+      });
+  });
 
   
 
