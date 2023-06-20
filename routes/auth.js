@@ -63,11 +63,9 @@ router.post("/api/signup", (req, res) => {
               process.env.JWT_SECRET
             );
             const { _id, name, email, userName, account, Photo } = savedUser;
-            // Check if Photo is null and set it to an empty string
-        const userPhoto = Photo || "";
             res.json({
               token,
-              user: { _id, name, email, userName, account, Photo:userPhoto },
+              user: { _id, name, email, userName, account, Photo},
             });
           } else {
             return res.status(422).json({ error: "Invalid Pasword" });
