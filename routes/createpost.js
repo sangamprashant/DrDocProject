@@ -54,7 +54,25 @@ router.get("/api/posts", requirelogin, (req, res) => {
         if (err) {
           return res.status(400).json({ error: err });
         }
-        res.json(posts);
+  
+        // Convert the createdAt date and time format
+        const formattedPosts = posts.map(post => {
+          const createdAt = new Date(post.createdAt).toLocaleString("en-US", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true
+          });
+  
+          return {
+            ...post._doc,
+            createdAt
+          };
+        });
+  
+        res.json(formattedPosts);
       });
   });
 
