@@ -15,7 +15,7 @@ export default function Home() {
   });
   const [pic, setPic] = useState([]);
   useEffect(() => {
-    fetch("/api/myposts", {
+    fetch("/api/posts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },

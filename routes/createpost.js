@@ -46,35 +46,36 @@ router.get("/api/myposts", requirelogin, (req, res) => {
 })
 // API endpoint to get posts by the logged-in user
 router.get("/api/posts", requirelogin, (req, res) => {
-    const userId = req.user._id;
-    // Retrieve the desired fields (photo, body, and createdAt) from the database
-    POST.find({ postedTo: userId }, "photo body createdAt")
-      .populate("postedBy", "_id name") // Populate the "postedBy" field with user data (only include _id and name fields)
-      .exec((err, posts) => {
-        if (err) {
-          return res.status(400).json({ error: err });
-        }
-  
-        // Convert the createdAt date and time format
-        const formattedPosts = posts.map(post => {
-          const createdAt = new Date(post.createdAt).toLocaleString("en-US", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true
-          });
-  
-          return {
-            ...post._doc,
-            createdAt
-          };
+  const userId = req.user._id;
+  // Retrieve the desired fields (photo, body, and createdAt) from the database
+  POST.find({ postedTo: userId }, "photo body createdAt")
+    .populate("postedBy", "_id name") // Populate the "postedBy" field with user data (only include _id and name fields)
+    .sort({ createdAt: -1 }) // Sort the posts by createdAt field in descending order
+    .exec((err, posts) => {
+      if (err) {
+        return res.status(400).json({ error: err });
+      }
+
+      // Convert the createdAt date and time format
+      const formattedPosts = posts.map((post) => {
+        const createdAt = new Date(post.createdAt).toLocaleString("en-US", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
         });
-  
-        res.json(formattedPosts);
+
+        return {
+          ...post._doc,
+          createdAt,
+        };
       });
-  });
+
+      res.json(formattedPosts);
+    });
+});
 
   
 
