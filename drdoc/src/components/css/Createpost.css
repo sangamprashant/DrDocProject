@@ -1,10 +1,11 @@
 .createPost{
 
     position:center;
-    max-width: 300px;
+    max-width: 500px;
     margin: 10px auto;
     border: 1px solid rgb(173, 173, 173);
     border-radius: 5px;
+    padding: 20px;
 }
 
 .createPost-top{
@@ -45,7 +46,7 @@ textarea{
 }
 
 #output{
-    width: 300px;
+    max-width: 450px;
     border: none;
     outline: none;
     margin-top: 5px;

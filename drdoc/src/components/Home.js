@@ -74,7 +74,7 @@ export default function Home() {
                   </div>
                   <div className="user-links">
                     <a>
-                      <span>{pic.length}</span> Posts
+                      <span>{pic.length}</span> Prescriptions
                     </a>
                   </div>
                   
@@ -99,7 +99,13 @@ export default function Home() {
               <>
                 <div className="zero-post-message ">
                   <p>
-                    Upload your medical descriptions.
+                  Start by Uploading Your First Post.<br/>
+                  <hr/>
+                  <p style={{textAlign:"left"}}>1.Click on the "Upload" button below to get started.<br/>
+    2.In the provided text field, write your medical description. Feel free to include relevant details, emotions, and insights that you would like to share.<br/>
+  3.Once youre satisfied with your post, click the "Upload" button to share it with your friends and the wider community.</p>
+
+   
                   </p>
                 </div>
               </>
