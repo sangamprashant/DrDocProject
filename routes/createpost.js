@@ -21,7 +21,7 @@ router.post("/api/createpost", requirelogin, (req, res) => {
         postedTo: req.user
     })
     post.save().then((result) => {
-        return res.json({ post: result })
+        return res.json({ message: "Prescription uploaded sucessfully." })
     }).catch(err => console.log(err))
 })
 
