@@ -41,12 +41,12 @@ export default function Bar({ login }) {
     } else {
       return [
         <>
-          <Link to="/Signin" class="nav-item">
+          <Link to="/signin" class="nav-item">
             <a class="nav-link" aria-current="page">
               SignIn
             </a>
           </Link>
-          <Link to="/Signup" class="nav-item">
+          <Link to="/signup" class="nav-item">
             <a class="nav-link" aria-current="page">
               SignUp
             </a>

@@ -4,10 +4,8 @@ const express = require("express");
 const app = express();
 const PORT = 5000;
 
-const socket = require("socket.io");
-const server = app.listen(PORT, () => {
-  console.log("Server is listening on " + PORT);
-});
+const http = require("http").createServer(app); // Use http module instead of app directly
+const io = require("socket.io")(http); // Initialize Socket.IO with the http server
 
 const mongoose = require("mongoose");
 
@@ -19,13 +17,13 @@ app.use(express.json());
 
 require("./models/model");
 require("./models/post");
-require("./models/message");
+require("./models/chat");
 require("./models/product");
 require("./models/cart");
 require("./models/order");
 app.use(require("./routes/auth"));
 app.use(require("./routes/createpost"));
-app.use(require("./routes/Message"));
+app.use(require("./routes/chat"));
 app.use(require("./routes/product"));
 
 mongoose.connect(process.env.MONGO_URL);
@@ -46,26 +44,24 @@ app.get("*", (req, res) => {
   });
 });
 
-
-const io = socket(server, {
-  cors: {
-    origin: "/",
-    credentials: true,
-  },
-});
-
 io.on("connection", (socket) => {
-  let onlineUsers = new Map(); // define a local map for online users
+  let onlineUsers = new Map(); // Define a local map for online users
+
   socket.on("addUser", (id) => {
     onlineUsers.set(id, socket.id);
   });
+
   socket.on("send-msg", (data) => {
-    const sendUserSocket = onlineUsers.get(data.to);
+    const sendUserSocket = onlineUsers.get(data.receiver);
     if (sendUserSocket) {
-      io.to(sendUserSocket).emit("msg-receive", data.message);
+      io.to(sendUserSocket).emit("msg-receive", data.content);
     } else {
-      console.log(`Recipient ${data.to} is not currently online.`);
-      // handle the case where the recipient is not currently online
+      console.log(`Recipient ${data.receiver} is not currently online.`);
+      // Handle the case where the recipient is not currently online
     }
   });
+});
+
+http.listen(PORT, () => {
+  console.log("Server is listening on " + PORT);
 });

@@ -23,7 +23,7 @@ import MyProduct from "./components/MyProduct";
 import ProductOpen from "./components/ProductOpen";
 import MakeOrder from "./components/MakeOrder";
 import ChatComponent from "./components/ChatComponent";
-
+import Chat from "./components/Chat";
 function App() {
   const [userLogin, setUserLogin] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -37,12 +37,13 @@ function App() {
           <Bar login={userLogin}  />
           <Routes>
             <Route path="/" element={<Landing login={userLogin} />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route exact path="/signin" element={<Signin />} />
+            <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/createpost" element={<Createpost />} />
             <Route exact path="/profile" element={<OtherUserProfile />} />
-            <Route exact path="/message" element={<ChatComponent />} />
+            {/* <Route exact path="/message" element={<ChatComponent />} /> */}
+            <Route exact path="/message" element={<Chat />} />
             <Route exact path="/store" element={<Store />} />
             <Route exact path=":userName/makeorder" element={<MakeOrder />} />
             <Route exact path=":userName/my" element={<MakeOrder />} />
