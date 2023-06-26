@@ -10,10 +10,13 @@ router.post("/api/message/send", requirelogin, async (req, res) => {
   const senderId = req.user._id; // Get the sender ID from the requireLogin middleware
   const receiverId = req.body.receiverId; // Get the receiver ID from the request body
   const content = req.body.content;
-
+console.log(content);
   try {
     if(!content){
       res.status(500).json({ error: "Please write a message." });
+    }
+    if(!receiverId){
+      res.status(500).json({ error: "Please check user." });
     }
     // Find the existing conversation between the sender and receiver
     let conversation = await CHAT.findOne({
@@ -59,13 +62,14 @@ router.get("/api/message/receivers", requirelogin, async (req, res) => {
     // Extract unique receiver IDs from the conversations
     const receiverIds = new Set();
     conversations.forEach((conversation) => {
-      conversation.participants.forEach((participantId) => {
-        if (participantId.toString() !== senderId.toString()) {
-          receiverIds.add(participantId);
-        }
-      });
+      if (conversation.participants && conversation.participants.length > 0) {
+        conversation.participants.forEach((participantId) => {
+          if (participantId && participantId.toString() !== senderId.toString()) {
+            receiverIds.add(participantId);
+          }
+        });
+      }
     });
-
     // Find the receivers based on the extracted receiver IDs
     const receivers = await USER.find({
       _id: { $in: Array.from(receiverIds) },

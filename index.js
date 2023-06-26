@@ -1,18 +1,25 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
 const app = express();
 const PORT = 5000;
 
-const http = require("http").createServer(app); // Use http module instead of app directly
-const io = require("socket.io")(http); // Initialize Socket.IO with the http server
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
 const mongoose = require("mongoose");
 
 const cors = require("cors");
 const path = require("path");
 
+// Enable CORS
 app.use(cors());
+
 app.use(express.json());
 
 require("./models/model");
@@ -45,19 +52,21 @@ app.get("*", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  let onlineUsers = new Map(); // Define a local map for online users
+  let onlineUsers = new Map();
 
   socket.on("addUser", (id) => {
     onlineUsers.set(id, socket.id);
+    console.log(id);
+    socket.join(id);
   });
 
-  socket.on("send-msg", (data) => {
-    const sendUserSocket = onlineUsers.get(data.receiver);
-    if (sendUserSocket) {
-      io.to(sendUserSocket).emit("msg-receive", data.content);
+  socket.on("send-msg", async (message) => {
+    const receiverSocketId = onlineUsers.get(message.receiverId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("message", message);
     } else {
-      console.log(`Recipient ${data.receiver} is not currently online.`);
-      // Handle the case where the recipient is not currently online
+      // Receiver is not online
+      // Handle the scenario accordingly, e.g., store the message in the database
     }
   });
 });

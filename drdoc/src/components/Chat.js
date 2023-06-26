@@ -57,8 +57,8 @@ function ChatComponent() {
     if (currentChatUser !== "") {
       socket.current.emit("addUser", loggedInUser._id);
     }
-  }, [currentChatUser, loggedInUser._id]);
-  
+  }, [currentChatUser._id, loggedInUser._id]);
+
   useEffect(() => {
     async function fetchUsers() {
       try {
@@ -108,28 +108,22 @@ function ChatComponent() {
   useEffect(() => {
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
-        sender: data.senderId,
+        senderId: data.senderId,
         content: data.content,
         createdAt: Date.now(),
       });
     });
   }, []);
 
-
   const sendMessage = () => {
     const newMessage = {
       sender: loggedInUser._id,
+      receiverId: currentChatUser._id, // Include receiver ID
       content: inputMessage,
     };
-    socket.current.emit("send-msg", {
-      sender: loggedInUser._id,
-      content: inputMessage,
-    });
 
-    socket.current.emit("msg", {
-      sender: loggedInUser._id,
-      receiver: currentChatUser._id,
-      content: inputMessage,});
+    // Emit the message to the server
+    socket.current.emit("send-msg", newMessage);
 
     fetch("http://localhost:5000/api/message/send", {
       method: "POST",
@@ -138,11 +132,12 @@ function ChatComponent() {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify({
-        receiver: currentChatUser._id,
+        receiverId: currentChatUser._id,
         content: inputMessage,
       }),
     })
       .then(() => {
+        console.log(newMessage)
         setMessages([...messages, newMessage]);
         setInputMessage("");
       })
@@ -152,25 +147,27 @@ function ChatComponent() {
   };
 
   useEffect(() => {
-    if (socket.current) {
-      socket.current.on("msg-receive", (msg) => {
-        setArrivalMessage({ sender: loggedInUser._id, content: msg });
-      });
-    }
+    // Listen for incoming messages
+    socket.current.on("message", (message) => {
+      // Update the messages state with the received message
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
   }, []);
 
   useEffect(() => {
-    arrivalMessage &&
-      currentChatUser._id === arrivalMessage.receiverId &&
-      setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, currentChatUser]);
-  
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        senderId: data.senderId,
+        content: data.content,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
   useEffect(() => {
-    socket.current?.on("receive-msg", (data) => {
-      const receivedMessage = data.content;
-      if (receivedMessage !== null) {
-        setArrivalMessage({ sender: currentChatUser._id, content: receivedMessage });
-      }
+    // Listen for incoming messages
+    socket.current.on("message", (message) => {
+      // Update the messages state with the received message
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
   }, []);
 
@@ -540,7 +537,9 @@ function ChatComponent() {
                                           <div className="d-flex justify-content-between">
                                             <p className="small mb-1 text-muted">
                                               {" "}
-                                              {msg.timestamp ? msg.timestamp : "Just Now"}
+                                              {msg.timestamp
+                                                ? msg.timestamp
+                                                : "Just Now"}
                                             </p>
                                             <p className="small mb-1">
                                               {" "}
