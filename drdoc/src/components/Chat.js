@@ -27,6 +27,7 @@ function ChatComponent() {
   const [accountSearch, setAccountSearch] = useState("");
   const [clickToDelete, setClickToDelete] = useState();
   const [deleteButtonOpen, setDeleteButtonOpen] = useState(false);
+  const [conversationId,setConversationId]= useState();
   // Toast functions
   const notifyA = (msg) => toast.error(msg);
   const notifyB = (msg) => toast.success(msg);
@@ -93,7 +94,8 @@ function ChatComponent() {
           }
         );
         const result = await response.json();
-        setMessages(result);
+        setMessages(result.messages);
+        setConversationId(result.conversationId)
         console.log(result);
       } catch (error) {
         console.error(error);
@@ -154,15 +156,6 @@ function ChatComponent() {
     });
   }, []);
 
-  useEffect(() => {
-    socket.current.on("getMessage", (data) => {
-      setArrivalMessage({
-        senderId: data.senderId,
-        content: data.content,
-        createdAt: Date.now(),
-      });
-    });
-  }, []);
   useEffect(() => {
     // Listen for incoming messages
     socket.current.on("message", (message) => {

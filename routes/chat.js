@@ -10,7 +10,6 @@ router.post("/api/message/send", requirelogin, async (req, res) => {
   const senderId = req.user._id; // Get the sender ID from the requireLogin middleware
   const receiverId = req.body.receiverId; // Get the receiver ID from the request body
   const content = req.body.content;
-console.log(content);
   try {
     if(!content){
       res.status(500).json({ error: "Please write a message." });
@@ -48,7 +47,6 @@ console.log(content);
     res.status(500).json({ error: "Failed to send message.." });
   }
 });
-
 // Get the list of receivers
 router.get("/api/message/receivers", requirelogin, async (req, res) => {
   const senderId = req.user._id; // Get the sender ID from the requireLogin middleware
@@ -81,8 +79,6 @@ router.get("/api/message/receivers", requirelogin, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
-
 // Get messages between a sender and receiver
 router.get("/api/message/:senderId/:receiverId", requirelogin, async (req, res) => {
   const senderId = req.params.senderId;
@@ -100,22 +96,18 @@ router.get("/api/message/:senderId/:receiverId", requirelogin, async (req, res) 
       return res.status(404).json({ error: "Conversation not found" });
     }
 
+    // Retrieve the conversation ID
+    const conversationId = conversation._id;
+
     // Retrieve the messages from the conversation
     const messages = conversation.messages;
 
-    res.json(messages);
+    res.json({ conversationId, messages });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch messages" });
   }
 });
-
-
-
-
-
-
-
 // Search users by name and account type 
 router.get("/message/search/:account/:name", async (req, res) => {
   try {
@@ -131,5 +123,47 @@ router.get("/message/search/:account/:name", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+// Delete a message
+router.delete("/api/message/:conversationId/:messageId", requirelogin, async (req, res) => {
+  const conversationId = req.params.conversationId;
+  const messageId = req.params.messageId;
+
+  try {
+    // Find the conversation based on conversationId and ensure the logged-in user is a participant
+    const conversation = await CHAT.findOne({
+      _id: conversationId,
+      participants: req.user._id,
+    });
+
+    if (!conversation) {
+      return res.status(404).json({ error: "Conversation not found" });
+    }
+
+    // Find the message within the conversation
+    const message = conversation.messages.find((msg) => msg._id.toString() === messageId);
+
+    if (!message) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    // Ensure that the logged-in user is the sender of the message
+    if (message.sender.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    // Remove the message from the conversation
+    conversation.messages.pull(message._id);
+
+    // Save the updated conversation
+    await conversation.save();
+
+    res.status(200).json({ message: "Message deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete message" });
+  }
+});
+
+
 
 module.exports = router
