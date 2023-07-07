@@ -65,7 +65,7 @@ router.post("/api/signup", (req, res) => {
             const { _id, name, email, userName, account, Photo } = savedUser;
             res.json({
               token,
-              user: { _id, name, email, userName, account, Photo},
+              user: { _id, name, email, userName, account, Photo },
             });
           } else {
             return res.status(422).json({ error: "Invalid Pasword" });
@@ -215,7 +215,7 @@ DrDoc`;
 });
 
 //api for android app
-//api to get users Profile Photo 
+//api to get users Profile Photo
 // Get User Profile Photo
 router.get("/api/user/:userId/profilephoto", (req, res) => {
   const { userId } = req.params;

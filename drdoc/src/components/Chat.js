@@ -41,7 +41,7 @@ function ChatComponent() {
   });
   useEffect(() => {
     // Connect to the socket.io server
-    socket.current = io("http://localhost:5000");
+    socket.current = io("");
 
     // Listen for incoming messages
     socket.current.on("message", (message) => {
@@ -64,7 +64,7 @@ function ChatComponent() {
     async function fetchUsers() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/message/receivers`,
+          `/api/message/receivers`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -86,7 +86,7 @@ function ChatComponent() {
     async function fetchMessages() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/message/${loggedInUser._id}/${currentChatUser._id}`,
+          `/api/message/${loggedInUser._id}/${currentChatUser._id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -127,7 +127,7 @@ function ChatComponent() {
     // Emit the message to the server
     socket.current.emit("send-msg", newMessage);
 
-    fetch("http://localhost:5000/api/message/send", {
+    fetch("/api/message/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +183,7 @@ function ChatComponent() {
     async function fetchUsers() {
       try {
         const response = await fetch(
-          `http://localhost:5000/message/search/${accountType}/${value}`,
+          `/message/search/${accountType}/${value}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -204,7 +204,7 @@ function ChatComponent() {
   const handleDeleteMessage = async (messageId) => {
     try {
       // Send a DELETE request to your backend API
-      await fetch(`http://localhost:5000/api/message/delete/${messageId}`, {
+      await fetch(`/api/message/${conversationId}/${messageId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,

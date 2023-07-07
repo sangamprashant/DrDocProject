@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   uploadedBy: {type: ObjectId,ref: "DRDOCUSER",},
+  deleted:{type:Boolean,default:false},
 });
 
 module.exports = mongoose.model("DRDOCPRODUCT", productSchema);

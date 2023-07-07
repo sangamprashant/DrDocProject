@@ -50,14 +50,11 @@ export default function Store() {
   const handelSearch = async (value, type) => {
     async function fetchUsers() {
       try {
-        const response = await fetch(
-          `/api/product/store/${type}/${value}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
-        );
+        const response = await fetch(`/api/product/store/${type}/${value}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        });
         const result = await response.json();
         setProductsSearched(result);
       } catch (error) {
@@ -120,87 +117,97 @@ export default function Store() {
                 <h3 style={{ textAlign: "center" }}>No product uploaded </h3>
               ) : (
                 products?.map((product) => (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div
-                      className="row justify-content-center mb-3"
-                      style={{ width: "90%" }}
-                    >
-                      <div className="col-md-12">
-                        <div className="card shadow-0 border rounded-3">
-                          <div className="card-body">
-                            <div className="row g-0">
-                              <div
-                                className="col-xl-3 col-md-4 d-flex justify-content-center"
-                                onClick={() => {
-                                  navigate(
-                                    `/${product.uploadedBy.name}/product/clicked/${product._id}`
-                                  );
-                                }}
-                              >
-                                <div className="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
-                                  <img
-                                    src={product.imageUrl}
-                                    className="w-100"
-                                  />
-                                  <a href="#!">
-                                    <div className="hover-overlay">
-                                      <div
-                                        className="mask"
-                                        style={{
-                                          backgroundColor:
-                                            "rgba(253, 253, 253, 0.15)",
-                                        }}
-                                      ></div>
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                              <div className="col-xl-6 col-md-5 col-sm-7">
-                                <h5>{product.title}</h5>
-                                <div className="d-flex flex-row">
-                                  <div className="text-warning mb-1 me-2">
-                                    <span className="ms-1">
-                                      {product.tagline}
-                                    </span>
-                                  </div>
-                                </div>
-
-                                <p className="text mb-4 mb-md-0">
-                                  {product.description}
-                                </p>
-                                <div className="d-flex flex-row">
-                                  <div className="text-warning mb-1 me-2">
-                                    <span className="ms-1">{product.type}</span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="col-xl-3 col-md-3 col-sm-5">
-                                <div className="d-flex flex-row align-items-center mb-1">
-                                  <h4 className="mb-1 me-1">
-                                    RS.{product.salesPrice}
-                                  </h4>
-                                  <span className="text-danger">
-                                    <s>RS.{product.mrp}</s>
-                                  </span>
-                                </div>
-                                <h6 className="text-success">Free shipping</h6>
-                                <div className="mt-4">
-                                  <button
-                                    className="btn btn-primary shadow-0"
-                                    type="button"
-                                    onClick={() => addToCart(product._id)}
+                  <>
+                    {!product.deleted && (
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <div
+                          className="row justify-content-center mb-3"
+                          style={{ width: "90%" }}
+                        >
+                          <div className="col-md-12">
+                            <div className="card shadow-0 border rounded-3">
+                              <div className="card-body">
+                                <div className="row g-0">
+                                  <div
+                                    className="col-xl-3 col-md-4 d-flex justify-content-center"
+                                    onClick={() => {
+                                      navigate(
+                                        `/${product.uploadedBy.name}/product/clicked/${product._id}`
+                                      );
+                                    }}
                                   >
-                                    Add To Cart
-                                  </button>
+                                    <div className="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
+                                      <img
+                                        src={product.imageUrl}
+                                        className="w-100"
+                                      />
+                                      <a href="#!">
+                                        <div className="hover-overlay">
+                                          <div
+                                            className="mask"
+                                            style={{
+                                              backgroundColor:
+                                                "rgba(253, 253, 253, 0.15)",
+                                            }}
+                                          ></div>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div className="col-xl-6 col-md-5 col-sm-7">
+                                    <h5>{product.title}</h5>
+                                    <div className="d-flex flex-row">
+                                      <div className="text-warning mb-1 me-2">
+                                        <span className="ms-1">
+                                          {product.tagline}
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                    <p className="text mb-4 mb-md-0">
+                                      {product.description}
+                                    </p>
+                                    <div className="d-flex flex-row">
+                                      <div className="text-warning mb-1 me-2">
+                                        <span className="ms-1">
+                                          {product.type}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="col-xl-3 col-md-3 col-sm-5">
+                                    <div className="d-flex flex-row align-items-center mb-1">
+                                      <h4 className="mb-1 me-1">
+                                        RS.{product.salesPrice}
+                                      </h4>
+                                      <span className="text-danger">
+                                        <s>RS.{product.mrp}</s>
+                                      </span>
+                                    </div>
+                                    <h6 className="text-success">
+                                      Free shipping
+                                    </h6>
+                                    <div className="mt-4">
+                                      <button
+                                        className="btn btn-primary shadow-0"
+                                        type="button"
+                                        onClick={() => addToCart(product._id)}
+                                      >
+                                        Add To Cart
+                                      </button>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    )}
+                  </>
                 ))
               )}
             </>
